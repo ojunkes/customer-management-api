@@ -1,3 +1,6 @@
+using Customers.Management.Application.DependencyInjection;
+using Customers.Management.Infra.DependencyInjection;
+
 namespace Customers.Management.WebApi;
 
 public class Program
@@ -22,6 +25,10 @@ public class Program
         });
 
         builder.Services.AddSwaggerGen();
+
+        builder.Services.AddApplicationServices();
+
+        builder.Services.AddDbContextSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")!);
 
         var app = builder.Build();
 
