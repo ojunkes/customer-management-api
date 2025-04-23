@@ -1,7 +1,7 @@
-﻿using Customer.Management.Domain.Core;
-using Customer.Management.Domain.Enums;
+﻿using Customers.Management.Domain.Core;
+using Customers.Management.Domain.Enums;
 
-namespace Customer.Management.Domain.Entities;
+namespace Customers.Management.Domain.Entities;
 
 public class Customer : BaseEntity
 {

@@ -1,4 +1,4 @@
-﻿namespace Customer.Management.Domain.Enums
+﻿namespace Customers.Management.Domain.Enums
 {
     public enum StatusCustomer
     {

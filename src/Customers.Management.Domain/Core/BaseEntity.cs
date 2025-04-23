@@ -1,4 +1,4 @@
-﻿namespace Customer.Management.Domain.Core;
+﻿namespace Customers.Management.Domain.Core;
 
 public abstract class BaseEntity
 {

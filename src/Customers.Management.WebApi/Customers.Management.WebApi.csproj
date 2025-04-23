@@ -12,7 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Customer.Management.Application\Customer.Management.Application.csproj" />
+    <ProjectReference Include="..\Customers.Management.Application\Customers.Management.Application.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,4 +1,4 @@
-namespace Customer.Management.WebApi;
+namespace Customers.Management.WebApi;
 
 public class Program
 {
@@ -31,7 +31,7 @@ public class Program
         {
             app.UseSwagger();
             app.UseSwaggerUI();
-        }        
+        }
 
         app.UseHttpsRedirection();
 
