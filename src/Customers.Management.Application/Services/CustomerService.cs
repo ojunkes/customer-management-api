@@ -47,10 +47,10 @@ internal class CustomerService : ICustomerService
 
     public async Task<CustomerResponse> UpdateCustomerAsync(CustomerRequest request, CancellationToken cancellationToken)
     {
-        var customerExist = await _customerRepository.GetByIdAsync(request.Id, cancellationToken);
+        var customer = await _customerRepository.GetByIdAsync(request.Id, cancellationToken);
         //TODO: Validar se id request diff id entidade - criar tratamento de erros
 
-        var customer = _mapper.Map<Customer>(request);
+        _mapper.Map(request, customer);
 
         await _customerRepository.Update(customer, cancellationToken);
         await _customerRepository.CommitAsync();
