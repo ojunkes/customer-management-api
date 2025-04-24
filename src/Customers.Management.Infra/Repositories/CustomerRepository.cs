@@ -26,6 +26,12 @@ internal class CustomerRepository : ICustomerRepository
             .FirstOrDefaultAsync(c => c.Id == id, cancellationToken);
     }
 
+    public async Task<Customer?> GetByCpfAsync(string cpf, CancellationToken cancellationToken)
+    {
+        return await _context.GetDbSet<Customer>()
+            .FirstOrDefaultAsync(c => c.Cpf == cpf, cancellationToken);
+    }
+
     public async Task InsertAsync(Customer customer, CancellationToken cancellationToken)
     {
         await _context.GetDbSet<Customer>()
@@ -39,13 +45,9 @@ internal class CustomerRepository : ICustomerRepository
         return Task.CompletedTask;
     }
 
-    public Task DeleteAsync(Guid id, CancellationToken cancellationToken)
+    public Task DeleteAsync(Customer customer, CancellationToken cancellationToken)
     {
-        var customer = _context.GetDbSet<Customer>().Find(id);
-        if (customer != null)
-        {
-            _context.GetDbSet<Customer>().Remove(customer);
-        }
+        _context.GetDbSet<Customer>().Remove(customer);
 
         return Task.CompletedTask;
     }
