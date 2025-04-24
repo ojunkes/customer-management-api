@@ -36,6 +36,6 @@ public class Customer : BaseEntity
         ZipCode = zipCode;
         State = state;
         Country = country;
-        Status = status;        
+        Status = status;
     }
 }

@@ -1,11 +1,11 @@
-﻿using System.Text.Json;
-using Customers.Management.Application.Responses;
+﻿using Customers.Management.Application.Responses;
 using Customers.Management.Application.Shared;
 using Customers.Management.WebApi.Middlewares;
 using FluentAssertions;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using Moq;
+using System.Text.Json;
 using Xunit;
 
 namespace Customers.Management.WebApi.Tests.Middlewares;

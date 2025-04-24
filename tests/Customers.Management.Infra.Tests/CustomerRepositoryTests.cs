@@ -3,7 +3,6 @@ using Customers.Management.Domain.Enums;
 using Customers.Management.Infra.Repositories;
 using Customers.Management.Infra.Tests.Fixtures;
 using FluentAssertions;
-using System.Reflection;
 using Xunit;
 using Xunit.Priority;
 
@@ -19,7 +18,7 @@ public class CustomerRepositoryTests : IClassFixture<FixtureServiceProvider>
     {
         _customerRepository = fixtureServiceProvider.GetService<ICustomerRepository>();
 
-        InsertMock();        
+        InsertMock();
     }
 
     [Fact, Priority(1)]
@@ -40,7 +39,7 @@ public class CustomerRepositoryTests : IClassFixture<FixtureServiceProvider>
         customer.Name.Should().Be("João Alberto");
         customer.Cpf.Should().Be("12345678944");
     }
-    
+
     [Fact, Priority(3)]
     public async Task GetByCpfAsync_ShouldReturnCustomer()
     {
@@ -108,7 +107,7 @@ public class CustomerRepositoryTests : IClassFixture<FixtureServiceProvider>
 
     private void InsertMock()
     {
-        if (_mocked) 
+        if (_mocked)
             return;
 
         var customer1 = new Customer(
@@ -121,7 +120,7 @@ public class CustomerRepositoryTests : IClassFixture<FixtureServiceProvider>
             "89045-123",
             "Santa Catarina",
             "Brasil",
-            StatusCustomer.Active            
+            StatusCustomer.Active
         );
         var customer2 = new Customer(
             Guid.Parse("5f1a5ccf-4066-472f-9606-bb00acdcb5b0"),
