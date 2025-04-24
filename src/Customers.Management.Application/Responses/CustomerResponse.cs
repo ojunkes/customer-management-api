@@ -1,0 +1,18 @@
+﻿using Customers.Management.Domain.Enums;
+
+namespace Customers.Management.Application.Responses;
+
+public record CustomerResponse
+{
+    public Guid Id { get; set; }
+    public int Code { get;  set; }
+    public string Name { get; set; } = null!;
+    public string Cpf { get; set; } = null!;
+    public DateOnly DateOfBirth { get; set; }
+    public string Address { get; set; } = null!;
+    public string City { get; set; } = null!;
+    public string ZipCode { get; set; } = null!;
+    public string State { get; set; } = null!;
+    public string Country { get; set; } = null!;
+    public StatusCustomer Status { get; set; }
+}
