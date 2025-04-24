@@ -18,21 +18,27 @@ internal class CustomerService : ICustomerService
         _mapper = mapper;
     }
 
-    public async Task<IEnumerable<CustomerResponse>> GetAllCustomersAsync(CancellationToken cancellationToken)
+    public async Task<BaseApiResponse<IEnumerable<CustomerResponse>>> GetAllCustomersAsync(CancellationToken cancellationToken)
     {
         var customers = await _customerRepository.GetAllAsync(cancellationToken);
 
-        return _mapper.Map<IEnumerable<CustomerResponse>>(customers);
+        var customersResponse = _mapper.Map<IEnumerable<CustomerResponse>>(customers);
+
+        return BaseApiResponse<IEnumerable<CustomerResponse>>.Ok(customersResponse);
     }
 
-    public async Task<CustomerResponse> GetCustomerByIdAsync(Guid id, CancellationToken cancellationToken)
+    public async Task<BaseApiResponse<CustomerResponse>> GetCustomerByIdAsync(Guid id, CancellationToken cancellationToken)
     {
         var customer = await _customerRepository.GetByIdAsync(id, cancellationToken);
+        if (customer == null)
+            throw new DomainException("Cliente não encontrado.");
 
-        return _mapper.Map<CustomerResponse>(customer);
+        var customersResponse = _mapper.Map<CustomerResponse>(customer);
+
+        return BaseApiResponse<CustomerResponse>.Ok(customersResponse);
     }
 
-    public async Task<CustomerResponse> InsertCustomerAsync(CustomerRequest request, CancellationToken cancellationToken)
+    public async Task<BaseApiResponse<CustomerResponse>> InsertCustomerAsync(CustomerRequest request, CancellationToken cancellationToken)
     {
         if (request?.Id != Guid.Empty)
             throw new DomainException("Id informado no corpo da requisição.");
@@ -47,10 +53,12 @@ internal class CustomerService : ICustomerService
         await _customerRepository.InsertAsync(customer, cancellationToken);
         await _customerRepository.CommitAsync();
 
-        return _mapper.Map<CustomerResponse>(customer);
+        var customersResponse = _mapper.Map<CustomerResponse>(customer);
+
+        return BaseApiResponse<CustomerResponse>.Ok(customersResponse);
     }
 
-    public async Task<CustomerResponse> UpdateCustomerAsync(CustomerRequest request, CancellationToken cancellationToken)
+    public async Task<BaseApiResponse<CustomerResponse>> UpdateCustomerAsync(CustomerRequest request, CancellationToken cancellationToken)
     {
         var customer = await _customerRepository.GetByIdAsync(request.Id, cancellationToken);
         if (customer == null)
@@ -61,7 +69,9 @@ internal class CustomerService : ICustomerService
         await _customerRepository.Update(customer, cancellationToken);
         await _customerRepository.CommitAsync();
 
-        return _mapper.Map<CustomerResponse>(customer);
+        var customersResponse = _mapper.Map<CustomerResponse>(customer);
+
+        return BaseApiResponse<CustomerResponse>.Ok(customersResponse);
     }
 
     public async Task DeleteCustomerAsync(Guid id, CancellationToken cancellationToken)

@@ -6,7 +6,7 @@ using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
 using System.Text.Json;
 using System;
-using Customers.Management.WebApi.Helper;
+using Customers.Management.Application.Responses;
 
 namespace Customer.Management.WebApi.Controllers
 {
@@ -51,9 +51,11 @@ namespace Customer.Management.WebApi.Controllers
         public async Task<IActionResult> InsertCustomerAsync(CustomerRequest request, CancellationToken cancellationToken)
         {
             var result = await _insertValidator.ValidateAsync(request);
-            if (!result.IsValid)
-                return ValidationResponseHelper.ToBadRequest(result);
-
+            if (!result.IsValid)            
+                return BadRequest(BaseApiResponse<object>.Fail(
+                    result.Errors.Select(e => e.ErrorMessage)
+                ));
+            
             var customer = await _customerService.InsertCustomerAsync(request, cancellationToken);
 
             return customer == null ? BadRequest() : Ok(customer);
@@ -64,10 +66,12 @@ namespace Customer.Management.WebApi.Controllers
         {
             var result = await _updateValidator.ValidateAsync(request);
             if (!result.IsValid)
-                return ValidationResponseHelper.ToBadRequest(result);
+                return BadRequest(BaseApiResponse<object>.Fail(
+                    result.Errors.Select(e => e.ErrorMessage)
+                ));
 
             if (id != request.Id)
-                return ValidationResponseHelper.ToBadRequest("Id da url não é o mesmo do Id do corpo da requisição.");
+                return BadRequest(BaseApiResponse<object>.Fail("Id da url não é o mesmo do Id do corpo da requisição."));
 
             var customer = await _customerService.UpdateCustomerAsync(request, cancellationToken);
 

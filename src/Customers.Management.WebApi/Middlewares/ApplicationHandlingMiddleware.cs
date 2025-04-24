@@ -1,5 +1,8 @@
-﻿using Customers.Management.Application.Shared;
+﻿using Customers.Management.Application.Responses;
+using Customers.Management.Application.Shared;
+using Microsoft.AspNetCore.Http;
 using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace Customers.Management.WebApi.Middlewares;
 
@@ -35,8 +38,8 @@ public class ApplicationHandlingMiddleware
         {
             case DomainException:
                 title = "Erro de validação dominio";
-                _logger.LogWarning(exception, "{title}: {message}", title, exception.Message);
-                context.Response.StatusCode = StatusCodes.Status400BadRequest;
+                _logger.LogWarning(exception, "{title}: {message}", title, exception.Message);                
+                context.Response.StatusCode = StatusCodes.Status400BadRequest;                
                 break;
 
             default:
@@ -45,11 +48,10 @@ public class ApplicationHandlingMiddleware
                 context.Response.StatusCode = StatusCodes.Status500InternalServerError;
                 break;
         }
-        var responseJson = JsonSerializer.Serialize(new
-        {
-            title = title,
-            detail = exception.Message
-        });
+
+        var responseJson = JsonSerializer.Serialize(
+            BaseApiResponse<object>.Fail(exception.Message)
+        );
         return context.Response.WriteAsync(responseJson);
     }
 }
