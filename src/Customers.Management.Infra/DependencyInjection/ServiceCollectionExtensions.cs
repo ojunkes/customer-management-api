@@ -1,6 +1,7 @@
 ﻿using Customers.Management.Infra.Context;
 using Customers.Management.Infra.Repositories;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.Extensions.DependencyInjection;
 using System.Diagnostics.CodeAnalysis;
 
@@ -13,6 +14,13 @@ public static class ServiceCollectionExtensions
     {
         serviceCollection.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(sqlServerConnectionString));
 
+        return serviceCollection;
+    }
+
+    public static IServiceCollection AddContextSqlServerInMemory(this IServiceCollection serviceCollection)
+    {
+        serviceCollection.AddDbContext<ApplicationDbContext>(options =>
+            options.UseInMemoryDatabase("DefaultDatabase", new InMemoryDatabaseRoot()));
         return serviceCollection;
     }
 

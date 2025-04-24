@@ -2,7 +2,7 @@
 
 public abstract class BaseEntity
 {
-    public Guid Id { get; private set; } = Guid.NewGuid();
-    public DateTimeOffset CreatedAt { get; private set; }
-    public DateTimeOffset? ModifiedAt { get; private set; }
+    public Guid Id { get; protected set; } = Guid.NewGuid();
+    public DateTimeOffset CreatedAt { get; protected set; }
+    public DateTimeOffset? ModifiedAt { get; protected set; }
 }
