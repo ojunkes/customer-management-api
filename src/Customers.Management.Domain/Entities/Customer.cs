@@ -5,7 +5,6 @@ namespace Customers.Management.Domain.Entities;
 
 public class Customer : BaseEntity
 {
-    public int Code { get; private set; }
     public string Name { get; private set; } = null!;
     public string Cpf { get; private set; } = null!;
     public DateOnly DateOfBirth { get; private set; }

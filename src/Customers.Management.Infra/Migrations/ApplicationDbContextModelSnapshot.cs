@@ -38,12 +38,6 @@ namespace Customers.Management.Infra.Migrations
                         .HasMaxLength(40)
                         .HasColumnType("nvarchar(40)");
 
-                    b.Property<int>("Code")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Code"));
-
                     b.Property<string>("Country")
                         .IsRequired()
                         .HasMaxLength(30)
@@ -82,9 +76,6 @@ namespace Customers.Management.Infra.Migrations
                         .HasColumnType("nvarchar(15)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("Code")
-                        .IsUnique();
 
                     b.HasIndex("Cpf")
                         .IsUnique();

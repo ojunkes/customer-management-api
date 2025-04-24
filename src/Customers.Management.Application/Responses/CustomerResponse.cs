@@ -5,7 +5,6 @@ namespace Customers.Management.Application.Responses;
 public record CustomerResponse
 {
     public Guid Id { get; set; }
-    public int Code { get;  set; }
     public string Name { get; set; } = null!;
     public string Cpf { get; set; } = null!;
     public DateOnly DateOfBirth { get; set; }
@@ -14,5 +13,5 @@ public record CustomerResponse
     public string ZipCode { get; set; } = null!;
     public string State { get; set; } = null!;
     public string Country { get; set; } = null!;
-    public StatusCustomer Status { get; set; }
+    public string Status { get; set; } = null!;
 }
