@@ -32,15 +32,15 @@ internal class CustomerService : ICustomerService
         return _mapper.Map<CustomerResponse>(customer);
     }
 
-    public async Task<CustomerResponse> InsertCustomerAsync(CustomerInsertRequest request, CancellationToken cancellationToken)
+    public async Task<CustomerResponse> InsertCustomerAsync(CustomerRequest request, CancellationToken cancellationToken)
     {
         if (request?.Id != Guid.Empty)
-            throw new ValidationException("Id informado no corpo da requisição.");
+            throw new DomainException("Id informado no corpo da requisição.");
 
 
-        var customerExist = await _customerRepository.GetByCpfAsync(request!.Cpf, cancellationToken);
+        var customerExist = await _customerRepository.GetByCpfAsync(request.Cpf!, cancellationToken);
         if (customerExist != null)
-            throw new ValidationException("CPF já consta na base de dados.");
+            throw new DomainException("CPF já consta na base de dados.");
 
         var customer = _mapper.Map<Customer>(request);
 
@@ -50,11 +50,11 @@ internal class CustomerService : ICustomerService
         return _mapper.Map<CustomerResponse>(customer);
     }
 
-    public async Task<CustomerResponse> UpdateCustomerAsync(CustomerUpdateRequest request, CancellationToken cancellationToken)
+    public async Task<CustomerResponse> UpdateCustomerAsync(CustomerRequest request, CancellationToken cancellationToken)
     {
         var customer = await _customerRepository.GetByIdAsync(request.Id, cancellationToken);
         if (customer == null)
-            throw new ValidationException("Customer não encontrado.");
+            throw new DomainException("Customer não encontrado.");
 
         _mapper.Map(request, customer);
 
@@ -68,7 +68,7 @@ internal class CustomerService : ICustomerService
     {
         var customer = await _customerRepository.GetByIdAsync(id, cancellationToken);
         if (customer == null)
-            throw new ValidationException("Customer não encontrado.");
+            throw new DomainException("Customer não encontrado.");
 
         await _customerRepository.DeleteAsync(customer, cancellationToken);
         await _customerRepository.CommitAsync();

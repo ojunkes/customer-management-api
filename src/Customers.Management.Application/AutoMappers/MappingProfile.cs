@@ -12,12 +12,16 @@ public class MappingProfile : Profile
     {
         CreateMap<Customer, CustomerResponse>()
             .ForMember(dest => dest.Status, opt => opt.MapFrom(src => src.Status.GetDescription()));
-        CreateMap<CustomerInsertRequest, Customer>();
-        CreateMap<CustomerUpdateRequest, Customer>()
+        CreateMap<CustomerRequest, Customer>()
             .ForMember(dest => dest.DateOfBirth, opt =>
             {
                 opt.PreCondition(src => src.DateOfBirth.HasValue);
                 opt.MapFrom(src => src.DateOfBirth!.Value);
+            })
+            .ForMember(dest => dest.Status, opt =>
+            {
+                opt.PreCondition(src => src.Status.HasValue);
+                opt.MapFrom(src => src.Status!.Value);
             })
             .ForAllMembers(opts => opts.Condition((src, dest, srcMember) => srcMember != null));
     }

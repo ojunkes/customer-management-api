@@ -33,8 +33,8 @@ public class ApplicationHandlingMiddleware
 
         switch (exception)
         {
-            case ValidationException:
-                title = "Erro de validação";
+            case DomainException:
+                title = "Erro de validação dominio";
                 _logger.LogWarning(exception, "{title}: {message}", title, exception.Message);
                 context.Response.StatusCode = StatusCodes.Status400BadRequest;
                 break;

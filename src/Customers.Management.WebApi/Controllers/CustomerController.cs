@@ -1,7 +1,12 @@
 using Customers.Management.Application.Requests;
 using Customers.Management.Application.Services;
+using Customers.Management.Application.Validators;
 using Customers.Management.Domain.Entities;
+using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
+using System.Text.Json;
+using System;
+using Customers.Management.WebApi.Helper;
 
 namespace Customer.Management.WebApi.Controllers
 {
@@ -13,10 +18,17 @@ namespace Customer.Management.WebApi.Controllers
         private const string RouteTemplate = "api/v1/customers";
 
         private readonly ICustomerService _customerService;
+        private readonly CustomerInsertValidator _insertValidator;
+        private readonly CustomerUpdateValidator _updateValidator;
 
-        public CustomerController(ICustomerService customerService)
+        public CustomerController(
+            ICustomerService customerService, 
+            CustomerInsertValidator insertValidator,
+            CustomerUpdateValidator updateValidator)
         {
             _customerService = customerService;
+            _insertValidator = insertValidator;
+            _updateValidator = updateValidator;
         }
 
         [HttpGet]
@@ -36,12 +48,11 @@ namespace Customer.Management.WebApi.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> InsertCustomerAsync(CustomerInsertRequest request, CancellationToken cancellationToken)
+        public async Task<IActionResult> InsertCustomerAsync(CustomerRequest request, CancellationToken cancellationToken)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
+            var result = await _insertValidator.ValidateAsync(request);
+            if (!result.IsValid)
+                return ValidationResponseHelper.ToBadRequest(result);
 
             var customer = await _customerService.InsertCustomerAsync(request, cancellationToken);
 
@@ -49,17 +60,14 @@ namespace Customer.Management.WebApi.Controllers
         }
 
         [HttpPut("{id:guid}")]
-        public async Task<IActionResult> UpdateCustomerAsync(Guid id, CustomerUpdateRequest request, CancellationToken cancellationToken)
+        public async Task<IActionResult> UpdateCustomerAsync(Guid id, CustomerRequest request, CancellationToken cancellationToken)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
+            var result = await _updateValidator.ValidateAsync(request);
+            if (!result.IsValid)
+                return ValidationResponseHelper.ToBadRequest(result);
 
             if (id != request.Id)
-            {
-                return BadRequest("Id da url não é o mesmo do Id do corpo da requisição.");
-            }
+                return ValidationResponseHelper.ToBadRequest("Id da url não é o mesmo do Id do corpo da requisição.");
 
             var customer = await _customerService.UpdateCustomerAsync(request, cancellationToken);
 

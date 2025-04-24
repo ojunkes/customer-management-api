@@ -33,27 +33,6 @@ public class Program
         builder.Services.AddDbContextSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")!);
         builder.Services.AddRepositories();
 
-        builder.Services.Configure<ApiBehaviorOptions>(options =>
-        {
-            options.InvalidModelStateResponseFactory = context =>
-            {
-                var detail = context.ModelState
-                    .Where(e => e.Value.Errors.Count > 0)
-                    .ToDictionary(
-                        kvp => kvp.Key,
-                        kvp => kvp.Value.Errors.Select(x => x.ErrorMessage).ToArray()
-                    );
-
-                var customResponse = new
-                {
-                    title = "Erro de validação nos campos enviados.",
-                    detail
-                };
-
-                return new BadRequestObjectResult(customResponse);
-            };
-        });
-
         var app = builder.Build();
 
         app.UseMiddleware<ApplicationHandlingMiddleware>();
