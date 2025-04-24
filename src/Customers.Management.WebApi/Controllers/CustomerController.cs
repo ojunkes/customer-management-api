@@ -28,6 +28,7 @@ namespace Customer.Management.WebApi.Controllers
         }
 
         [HttpGet]
+        [ProducesResponseType(typeof(BaseApiResponse<IEnumerable<CustomerResponse>>), StatusCodes.Status200OK)]
         public async Task<IActionResult> GetAllAsync(CancellationToken cancellationToken)
         {
             var customers = await _customerService.GetAllCustomersAsync(cancellationToken);
@@ -36,6 +37,8 @@ namespace Customer.Management.WebApi.Controllers
         }
 
         [HttpGet("{id:guid}")]
+        [ProducesResponseType(typeof(BaseApiResponse<CustomerResponse>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(BaseApiResponse<object>), StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> GetCustomerAsync(Guid id, CancellationToken cancellationToken)
         {
             var customer = await _customerService.GetCustomerByIdAsync(id, cancellationToken);
@@ -44,6 +47,8 @@ namespace Customer.Management.WebApi.Controllers
         }
 
         [HttpPost]
+        [ProducesResponseType(typeof(BaseApiResponse<CustomerResponse>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(BaseApiResponse<object>), StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> InsertCustomerAsync(CustomerRequest request, CancellationToken cancellationToken)
         {
             var result = await _insertValidator.ValidateAsync(request);
@@ -58,6 +63,8 @@ namespace Customer.Management.WebApi.Controllers
         }
 
         [HttpPut("{id:guid}")]
+        [ProducesResponseType(typeof(BaseApiResponse<CustomerResponse>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(BaseApiResponse<object>), StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> UpdateCustomerAsync(Guid id, CustomerRequest request, CancellationToken cancellationToken)
         {
             var result = await _updateValidator.ValidateAsync(request);
@@ -75,6 +82,8 @@ namespace Customer.Management.WebApi.Controllers
         }
 
         [HttpDelete("{id:guid}")]
+        [ProducesResponseType(typeof(BaseApiResponse<CustomerResponse>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(BaseApiResponse<object>), StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> DeleteCustomerAsync(Guid id, CancellationToken cancellationToken)
         {
             await _customerService.DeleteCustomerAsync(id, cancellationToken);
