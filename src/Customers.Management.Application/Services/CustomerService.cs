@@ -31,7 +31,7 @@ internal class CustomerService : ICustomerService
         return _mapper.Map<CustomerResponse>(customer);
     }
 
-    public async Task<CustomerResponse> InsertCustomerAsync(CustomerRequest request, CancellationToken cancellationToken)
+    public async Task<CustomerResponse> InsertCustomerAsync(CustomerInsertRequest request, CancellationToken cancellationToken)
     {
         var customerExist = await _customerRepository.GetByCpfAsync(request.Cpf, cancellationToken);
         //TODO: Validar se já existe CPF - criar tratamento de erros
@@ -45,7 +45,7 @@ internal class CustomerService : ICustomerService
         return _mapper.Map<CustomerResponse>(customer);
     }
 
-    public async Task<CustomerResponse> UpdateCustomerAsync(CustomerRequest request, CancellationToken cancellationToken)
+    public async Task<CustomerResponse> UpdateCustomerAsync(CustomerUpdateRequest request, CancellationToken cancellationToken)
     {
         var customer = await _customerRepository.GetByIdAsync(request.Id, cancellationToken);
         //TODO: Validar se id request diff id entidade - criar tratamento de erros

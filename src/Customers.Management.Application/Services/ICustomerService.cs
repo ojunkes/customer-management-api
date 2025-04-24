@@ -10,9 +10,9 @@ public interface ICustomerService
 
     Task<IEnumerable<CustomerResponse>> GetAllCustomersAsync(CancellationToken cancellationToken);
 
-    Task<CustomerResponse> InsertCustomerAsync(CustomerRequest request, CancellationToken cancellationToken);
+    Task<CustomerResponse> InsertCustomerAsync(CustomerInsertRequest request, CancellationToken cancellationToken);
 
-    Task<CustomerResponse> UpdateCustomerAsync(CustomerRequest request, CancellationToken cancellationToken);
+    Task<CustomerResponse> UpdateCustomerAsync(CustomerUpdateRequest request, CancellationToken cancellationToken);
 
     Task DeleteCustomerAsync(Guid id, CancellationToken cancellationToken);
 }
