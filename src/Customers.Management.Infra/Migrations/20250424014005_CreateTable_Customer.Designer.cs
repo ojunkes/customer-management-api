@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Customers.Management.Infra.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250423233721_CreateTable_Customer")]
+    [Migration("20250424014005_CreateTable_Customer")]
     partial class CreateTable_Customer
     {
         /// <inheritdoc />
@@ -42,7 +42,10 @@ namespace Customers.Management.Infra.Migrations
                         .HasColumnType("nvarchar(40)");
 
                     b.Property<int>("Code")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Code"));
 
                     b.Property<string>("Country")
                         .IsRequired()

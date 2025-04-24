@@ -39,7 +39,10 @@ namespace Customers.Management.Infra.Migrations
                         .HasColumnType("nvarchar(40)");
 
                     b.Property<int>("Code")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Code"));
 
                     b.Property<string>("Country")
                         .IsRequired()

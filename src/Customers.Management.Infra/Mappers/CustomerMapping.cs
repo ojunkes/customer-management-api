@@ -2,11 +2,6 @@
 using Customers.Management.Domain.Enums;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Customers.Management.Infra.Mappers
 {
@@ -19,7 +14,9 @@ namespace Customers.Management.Infra.Mappers
                 .HasColumnType("UNIQUEIDENTIFIER");
 
             builder.Property(c => c.Code)
-                .IsRequired();
+                .IsRequired()
+                .ValueGeneratedOnAdd()
+                .UseIdentityColumn();
 
             builder.HasIndex(c => c.Code)
                 .IsUnique();
