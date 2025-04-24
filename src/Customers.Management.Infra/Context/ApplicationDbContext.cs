@@ -1,5 +1,4 @@
-﻿using Customers.Management.Domain.Entities;
-using Customers.Management.Infra.Context.Abstraction;
+﻿using Customers.Management.Infra.Context.Abstraction;
 using Microsoft.EntityFrameworkCore;
 using System.Diagnostics.CodeAnalysis;
 using System.Reflection;

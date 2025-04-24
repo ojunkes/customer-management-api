@@ -1,5 +1,4 @@
 using Customers.Management.Application.Requests;
-using Customers.Management.Application.Responses;
 using Customers.Management.Application.Services;
 using Microsoft.AspNetCore.Mvc;
 

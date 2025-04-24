@@ -34,16 +34,16 @@ internal class CustomerService : ICustomerService
 
     public async Task<CustomerResponse> InsertCustomerAsync(CustomerInsertRequest request, CancellationToken cancellationToken)
     {
-        if(request?.Id != null)
+        if (request?.Id != null)
             throw new ValidationException("Id informado no corpo da requisição.");
 
 
         var customerExist = await _customerRepository.GetByCpfAsync(request!.Cpf, cancellationToken);
         if (customerExist != null)
             throw new ValidationException("CPF já consta na base de dados.");
-        
+
         var customer = _mapper.Map<Customer>(request);
-        
+
         await _customerRepository.InsertAsync(customer, cancellationToken);
         await _customerRepository.CommitAsync();
 

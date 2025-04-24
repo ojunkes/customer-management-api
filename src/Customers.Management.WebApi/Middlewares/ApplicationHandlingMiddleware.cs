@@ -1,5 +1,4 @@
 ﻿using Customers.Management.Application.Shared;
-using System.Runtime.CompilerServices;
 using System.Text.Json;
 
 namespace Customers.Management.WebApi.Middlewares;

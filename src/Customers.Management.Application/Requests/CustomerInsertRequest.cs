@@ -4,13 +4,13 @@ using System.ComponentModel.DataAnnotations;
 namespace Customers.Management.Application.Requests;
 
 public record CustomerInsertRequest
-{    
+{
     public Guid Id { get; set; }
 
     [Required(ErrorMessage = "O campo Nome é obrigatório.")]
     [StringLength(60, MinimumLength = 2)]
     public string Name { get; set; } = null!;
-    
+
     [Required(ErrorMessage = "O campo CPF é obrigatório.")]
     [RegularExpression(@"^\d{11}$", ErrorMessage = "CPF deve conter 11 dígitos.")]
     public string Cpf { get; set; } = null!;

@@ -1,6 +1,4 @@
-﻿using Customers.Management.Domain.Enums;
-
-namespace Customers.Management.Application.Responses;
+﻿namespace Customers.Management.Application.Responses;
 
 public record CustomerResponse
 {
