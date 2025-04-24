@@ -29,6 +29,7 @@ public class Program
         builder.Services.AddApplicationServices();
 
         builder.Services.AddDbContextSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")!);
+        builder.Services.AddRepositories();
 
         var app = builder.Build();
 
