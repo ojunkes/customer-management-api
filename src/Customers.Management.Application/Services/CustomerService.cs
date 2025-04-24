@@ -34,7 +34,7 @@ internal class CustomerService : ICustomerService
 
     public async Task<CustomerResponse> InsertCustomerAsync(CustomerInsertRequest request, CancellationToken cancellationToken)
     {
-        if (request?.Id != null)
+        if (request?.Id != Guid.Empty)
             throw new ValidationException("Id informado no corpo da requisição.");
 
 

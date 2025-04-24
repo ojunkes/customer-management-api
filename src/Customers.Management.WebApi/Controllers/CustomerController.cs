@@ -1,5 +1,6 @@
 using Customers.Management.Application.Requests;
 using Customers.Management.Application.Services;
+using Customers.Management.Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Customer.Management.WebApi.Controllers
@@ -21,7 +22,9 @@ namespace Customer.Management.WebApi.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAllAsync(CancellationToken cancellationToken)
         {
-            return Ok(await _customerService.GetAllCustomersAsync(cancellationToken));
+            var customers = await _customerService.GetAllCustomersAsync(cancellationToken);
+
+            return customers == null ? NoContent() : Ok(customers);
         }
 
         [HttpGet("{id:guid}")]
