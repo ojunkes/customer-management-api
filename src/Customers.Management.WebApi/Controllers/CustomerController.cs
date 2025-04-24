@@ -1,12 +1,8 @@
 using Customers.Management.Application.Requests;
+using Customers.Management.Application.Responses;
 using Customers.Management.Application.Services;
 using Customers.Management.Application.Validators;
-using Customers.Management.Domain.Entities;
-using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
-using System.Text.Json;
-using System;
-using Customers.Management.Application.Responses;
 
 namespace Customer.Management.WebApi.Controllers
 {
@@ -22,7 +18,7 @@ namespace Customer.Management.WebApi.Controllers
         private readonly CustomerUpdateValidator _updateValidator;
 
         public CustomerController(
-            ICustomerService customerService, 
+            ICustomerService customerService,
             CustomerInsertValidator insertValidator,
             CustomerUpdateValidator updateValidator)
         {
@@ -51,11 +47,11 @@ namespace Customer.Management.WebApi.Controllers
         public async Task<IActionResult> InsertCustomerAsync(CustomerRequest request, CancellationToken cancellationToken)
         {
             var result = await _insertValidator.ValidateAsync(request);
-            if (!result.IsValid)            
+            if (!result.IsValid)
                 return BadRequest(BaseApiResponse<object>.Fail(
                     result.Errors.Select(e => e.ErrorMessage)
                 ));
-            
+
             var customer = await _customerService.InsertCustomerAsync(request, cancellationToken);
 
             return customer == null ? BadRequest() : Ok(customer);

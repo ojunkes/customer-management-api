@@ -1,7 +1,6 @@
 using Customers.Management.Application.DependencyInjection;
 using Customers.Management.Infra.DependencyInjection;
 using Customers.Management.WebApi.Middlewares;
-using Microsoft.AspNetCore.Mvc;
 
 namespace Customers.Management.WebApi;
 

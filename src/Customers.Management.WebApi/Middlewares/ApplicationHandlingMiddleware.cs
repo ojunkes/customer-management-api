@@ -1,8 +1,6 @@
 ﻿using Customers.Management.Application.Responses;
 using Customers.Management.Application.Shared;
-using Microsoft.AspNetCore.Http;
 using System.Text.Json;
-using System.Text.Json.Serialization;
 
 namespace Customers.Management.WebApi.Middlewares;
 
@@ -37,14 +35,12 @@ public class ApplicationHandlingMiddleware
         switch (exception)
         {
             case DomainException:
-                title = "Erro de validação dominio";
-                _logger.LogWarning(exception, "{title}: {message}", title, exception.Message);                
-                context.Response.StatusCode = StatusCodes.Status400BadRequest;                
+                _logger.LogWarning(exception, "Erro de validação dominio: {message}", exception.Message);
+                context.Response.StatusCode = StatusCodes.Status400BadRequest;
                 break;
 
             default:
-                title = "Erro não esperado";
-                _logger.LogError(exception, "{title}: {message}", title, exception.Message);
+                _logger.LogError(exception, "Erro não esperado: {message}", exception.Message);
                 context.Response.StatusCode = StatusCodes.Status500InternalServerError;
                 break;
         }
