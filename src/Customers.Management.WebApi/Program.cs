@@ -1,10 +1,12 @@
 using Customers.Management.Application.DependencyInjection;
 using Customers.Management.Infra.DependencyInjection;
 using Customers.Management.WebApi.Middlewares;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Customers.Management.WebApi;
 
-public class Program
+[ExcludeFromCodeCoverage]
+public static class Program
 {
     public static void Main(string[] args)
     {

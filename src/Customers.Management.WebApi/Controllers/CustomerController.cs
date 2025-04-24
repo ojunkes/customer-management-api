@@ -3,12 +3,14 @@ using Customers.Management.Application.Responses;
 using Customers.Management.Application.Services;
 using Customers.Management.Application.Validators;
 using Microsoft.AspNetCore.Mvc;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Customer.Management.WebApi.Controllers
 {
     [ApiController]
     [Route(RouteTemplate)]
     [Produces("application/json")]
+    [ExcludeFromCodeCoverage]
     public class CustomerController : ControllerBase
     {
         private const string RouteTemplate = "api/v1/customers";
