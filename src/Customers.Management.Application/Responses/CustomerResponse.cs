@@ -1,5 +1,8 @@
-﻿namespace Customers.Management.Application.Responses;
+﻿using System.Diagnostics.CodeAnalysis;
 
+namespace Customers.Management.Application.Responses;
+
+[ExcludeFromCodeCoverage]
 public record CustomerResponse
 {
     public Guid Id { get; set; }

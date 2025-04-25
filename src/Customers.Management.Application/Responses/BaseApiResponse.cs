@@ -1,7 +1,9 @@
-﻿using System.Text.Json.Serialization;
+﻿using System.Diagnostics.CodeAnalysis;
+using System.Text.Json.Serialization;
 
 namespace Customers.Management.Application.Responses;
 
+[ExcludeFromCodeCoverage]
 public class BaseApiResponse<T>
 {
     public bool Success { get; set; }

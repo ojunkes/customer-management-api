@@ -104,7 +104,6 @@ public class CustomerRepositoryTests : IClassFixture<FixtureServiceProvider>
         customerNull.Should().BeNull();
     }
 
-
     private void InsertMock()
     {
         if (_mocked)

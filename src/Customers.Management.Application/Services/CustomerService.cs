@@ -27,7 +27,7 @@ internal class CustomerService : ICustomerService
         return BaseApiResponse<IEnumerable<CustomerResponse>>.Ok(customersResponse);
     }
 
-    public async Task<BaseApiResponse<CustomerResponse>> GetCustomerByIdAsync(Guid id, CancellationToken cancellationToken)
+    public async Task<BaseApiResponse<CustomerResponse>> GetCustomerAsync(Guid id, CancellationToken cancellationToken)
     {
         var customer = await _customerRepository.GetByIdAsync(id, cancellationToken);
         if (customer == null)
@@ -42,7 +42,6 @@ internal class CustomerService : ICustomerService
     {
         if (request?.Id != Guid.Empty)
             throw new DomainException("Id informado no corpo da requisição.");
-
 
         var customerExist = await _customerRepository.GetByCpfAsync(request.Cpf!, cancellationToken);
         if (customerExist != null)
@@ -62,7 +61,7 @@ internal class CustomerService : ICustomerService
     {
         var customer = await _customerRepository.GetByIdAsync(request.Id, cancellationToken);
         if (customer == null)
-            throw new DomainException("Customer não encontrado.");
+            throw new DomainException("Cliente não encontrado.");
 
         _mapper.Map(request, customer);
 
@@ -78,7 +77,7 @@ internal class CustomerService : ICustomerService
     {
         var customer = await _customerRepository.GetByIdAsync(id, cancellationToken);
         if (customer == null)
-            throw new DomainException("Customer não encontrado.");
+            throw new DomainException("Cliente não encontrado.");
 
         await _customerRepository.DeleteAsync(customer, cancellationToken);
         await _customerRepository.CommitAsync();

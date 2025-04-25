@@ -43,7 +43,7 @@ namespace Customer.Management.WebApi.Controllers
         [ProducesResponseType(typeof(BaseApiResponse<object>), StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> GetCustomerAsync(Guid id, CancellationToken cancellationToken)
         {
-            var customer = await _customerService.GetCustomerByIdAsync(id, cancellationToken);
+            var customer = await _customerService.GetCustomerAsync(id, cancellationToken);
 
             return customer == null ? NoContent() : Ok(customer);
         }

@@ -1,7 +1,9 @@
 ﻿using Customers.Management.Domain.Enums;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Customers.Management.Application.Requests;
 
+[ExcludeFromCodeCoverage]
 public record CustomerRequest
 {
     public Guid Id { get; set; }

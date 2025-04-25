@@ -5,7 +5,7 @@ namespace Customers.Management.Application.Services;
 
 public interface ICustomerService
 {
-    Task<BaseApiResponse<CustomerResponse>> GetCustomerByIdAsync(Guid id, CancellationToken cancellationToken);
+    Task<BaseApiResponse<CustomerResponse>> GetCustomerAsync(Guid id, CancellationToken cancellationToken);
 
     Task<BaseApiResponse<IEnumerable<CustomerResponse>>> GetAllCustomersAsync(CancellationToken cancellationToken);
 
