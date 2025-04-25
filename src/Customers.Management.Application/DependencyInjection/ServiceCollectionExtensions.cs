@@ -3,7 +3,6 @@ using Customers.Management.Application.Validators;
 using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
 using System.Diagnostics.CodeAnalysis;
-using System.Reflection;
 using System.Runtime.CompilerServices;
 
 [assembly: InternalsVisibleTo("Customers.Management.Application.Tests")]

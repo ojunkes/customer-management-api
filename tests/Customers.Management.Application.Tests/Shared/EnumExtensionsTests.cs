@@ -1,5 +1,4 @@
-﻿using System.ComponentModel;
-using Customers.Management.Application.Shared;
+﻿using Customers.Management.Application.Shared;
 using Customers.Management.Domain.Enums;
 using FluentAssertions;
 using Xunit;

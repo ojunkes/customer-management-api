@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using Castle.Core.Resource;
 using Customers.Management.Application.Requests;
 using Customers.Management.Application.Responses;
 using Customers.Management.Application.Services;
@@ -8,13 +7,7 @@ using Customers.Management.Domain.Entities;
 using Customers.Management.Domain.Enums;
 using Customers.Management.Infra.Repositories;
 using FluentAssertions;
-using Microsoft.EntityFrameworkCore.SqlServer.Query.Internal;
 using Moq;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Xunit;
 
 namespace Customers.Management.Application.Tests.Services;
@@ -105,20 +98,20 @@ public class CustomerServiceTests
         var customer = new Customer(Guid.NewGuid(), "Nome 1", "12345678901", DateOnly.FromDateTime(DateTime.Now), "Rua 1", "Cidade 1", "12345-123", "Estado 1", "País 1", StatusCustomer.Active);
 
         var customerResponse = new CustomerResponse()
-            {
-                Id = customer.Id,
-                Name = customer.Name,
-                Cpf = customer.Cpf,
-                DateOfBirth = customer.DateOfBirth,
-                Address = customer.Address,
-                City = customer.City,
-                ZipCode = customer.ZipCode,
-                State = customer.State,
-                Country = customer.Country,
-                Status  = customer.Status.GetDescription()
-            };
+        {
+            Id = customer.Id,
+            Name = customer.Name,
+            Cpf = customer.Cpf,
+            DateOfBirth = customer.DateOfBirth,
+            Address = customer.Address,
+            City = customer.City,
+            ZipCode = customer.ZipCode,
+            State = customer.State,
+            Country = customer.Country,
+            Status = customer.Status.GetDescription()
+        };
 
-        _repositoryMock.Setup(r => r.GetByIdAsync(It.IsAny<Guid>() ,It.IsAny<CancellationToken>()))
+        _repositoryMock.Setup(r => r.GetByIdAsync(It.IsAny<Guid>(), It.IsAny<CancellationToken>()))
             .ReturnsAsync(customer);
 
         _mapperMock.Setup(m => m.Map<CustomerResponse>(customer))
@@ -149,14 +142,14 @@ public class CustomerServiceTests
     {
         var customerRequest = new CustomerRequest()
         {
-            Name = "Nome 1", 
-            Cpf = "12345678901", 
-            DateOfBirth = DateOnly.FromDateTime(DateTime.Now), 
-            Address = "Rua 1", 
-            City = "Cidade 1", 
-            ZipCode = "12345-123", 
-            State = "Estado 1", 
-            Country = "País 1", 
+            Name = "Nome 1",
+            Cpf = "12345678901",
+            DateOfBirth = DateOnly.FromDateTime(DateTime.Now),
+            Address = "Rua 1",
+            City = "Cidade 1",
+            ZipCode = "12345-123",
+            State = "Estado 1",
+            Country = "País 1",
             Status = StatusCustomer.Active
         };
 

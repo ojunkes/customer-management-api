@@ -23,15 +23,15 @@ public class MappingProfileTests
     [Fact]
     public void CreateMap_ShouldMapCustomerToCustomerResponseWithStatusDescription()
     {
-        var customer = new Customer(Guid.NewGuid(), 
-                                    "Nome 1", 
-                                    "12345678901", 
-                                    DateOnly.FromDateTime(DateTime.Now), 
-                                    "Rua 1", 
-                                    "Cidade 1", 
-                                    "12345-123", 
-                                    "Estado 1", 
-                                    "País 1", 
+        var customer = new Customer(Guid.NewGuid(),
+                                    "Nome 1",
+                                    "12345678901",
+                                    DateOnly.FromDateTime(DateTime.Now),
+                                    "Rua 1",
+                                    "Cidade 1",
+                                    "12345-123",
+                                    "Estado 1",
+                                    "País 1",
                                     StatusCustomer.Active);
 
         var result = _mapper.Map<CustomerResponse>(customer);
@@ -45,7 +45,7 @@ public class MappingProfileTests
         result.ZipCode.Should().Be(customer.ZipCode);
         result.State.Should().Be(customer.State);
         result.Country.Should().Be(customer.Country);
-        result.Status.Should().Be(StatusCustomer.Active.GetDescription()); 
+        result.Status.Should().Be(StatusCustomer.Active.GetDescription());
     }
 
     [Fact]

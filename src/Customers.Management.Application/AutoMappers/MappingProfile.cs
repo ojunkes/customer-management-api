@@ -3,7 +3,6 @@ using Customers.Management.Application.Requests;
 using Customers.Management.Application.Responses;
 using Customers.Management.Application.Shared;
 using Customers.Management.Domain.Entities;
-using System.Diagnostics.CodeAnalysis;
 
 namespace Customers.Management.Application.AutoMappers;
 
