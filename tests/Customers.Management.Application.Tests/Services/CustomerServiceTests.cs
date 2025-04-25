@@ -147,7 +147,7 @@ public class CustomerServiceTests
             DateOfBirth = DateOnly.FromDateTime(DateTime.Now),
             Address = "Rua 1",
             City = "Cidade 1",
-            ZipCode = "12345-123",
+            ZipCode = "12345123",
             State = "Estado 1",
             Country = "País 1",
             SignupChannel = SignupChannel.Website
@@ -197,7 +197,7 @@ public class CustomerServiceTests
             DateOfBirth = DateOnly.FromDateTime(DateTime.Now),
             Address = "Rua 1",
             City = "Cidade 1",
-            ZipCode = "12345-123",
+            ZipCode = "12345123",
             State = "Estado 1",
             Country = "País 1",
             SignupChannel = SignupChannel.Website
@@ -223,7 +223,7 @@ public class CustomerServiceTests
             DateOfBirth = DateOnly.FromDateTime(DateTime.Now),
             Address = "Rua 1",
             City = "Cidade 1",
-            ZipCode = "12345-123",
+            ZipCode = "12345123",
             State = "Estado 1",
             Country = "País 1",
             SignupChannel = SignupChannel.Website
@@ -255,7 +255,7 @@ public class CustomerServiceTests
             DateOfBirth = DateOnly.FromDateTime(DateTime.Now),
             Address = "Rua 1",
             City = "Cidade 1",
-            ZipCode = "12345-123",
+            ZipCode = "12345123",
             State = "Estado 1",
             Country = "País 1",
             SignupChannel = SignupChannel.Website
@@ -308,7 +308,7 @@ public class CustomerServiceTests
             DateOfBirth = DateOnly.FromDateTime(DateTime.Now),
             Address = "Rua 1",
             City = "Cidade 1",
-            ZipCode = "12345-123",
+            ZipCode = "12345123",
             State = "Estado 1",
             Country = "País 1",
             SignupChannel = SignupChannel.Website

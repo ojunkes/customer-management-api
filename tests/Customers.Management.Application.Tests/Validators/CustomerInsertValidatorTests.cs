@@ -93,7 +93,7 @@ public class CustomerInsertValidatorMessagesTests
         var result = _validator.TestValidate(model);
 
         result.ShouldHaveValidationErrorFor(x => x.ZipCode)
-              .WithErrorMessage("Formato inválido de CEP.");
+              .WithErrorMessage("CEP deve conter 8 dígitos.");
     }
 
     [Fact]
@@ -136,7 +136,7 @@ public class CustomerInsertValidatorMessagesTests
             DateOfBirth = new DateOnly(1995, 5, 20),
             Address = "Rua dos Testes",
             City = "São Paulo",
-            ZipCode = "12345-678",
+            ZipCode = "12345678",
             State = "SP",
             Country = "Brasil",
             SignupChannel = SignupChannel.Website

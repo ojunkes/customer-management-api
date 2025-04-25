@@ -28,7 +28,7 @@ public class CustomerInsertValidator : AbstractValidator<CustomerRequest>
 
         RuleFor(x => x.ZipCode)
             .NotEmpty().WithMessage("O campo CEP é obrigatório.")
-            .Matches(@"^\d{5}-?\d{3}$").WithMessage("Formato inválido de CEP.");
+            .Matches(@"^\d{8}$").WithMessage("CEP deve conter 8 dígitos.");
 
         RuleFor(x => x.State)
             .NotEmpty().WithMessage("O campo Estado é obrigatório.")

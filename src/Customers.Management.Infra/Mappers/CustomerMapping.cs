@@ -36,7 +36,7 @@ namespace Customers.Management.Infra.Mappers
 
             builder.Property(c => c.ZipCode)
                 .IsRequired()
-                .HasMaxLength(15);
+                .HasMaxLength(8);
 
             builder.Property(c => c.State)
                 .IsRequired()

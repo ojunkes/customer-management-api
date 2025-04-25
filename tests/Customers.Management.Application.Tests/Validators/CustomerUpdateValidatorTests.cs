@@ -142,7 +142,7 @@ public class CustomerUpdateValidatorTests
             TaxId = "12345678901",
             Address = "Rua Central, 123",
             City = "Curitiba",
-            ZipCode = "12345-678",
+            ZipCode = "12345678",
             State = "PR",
             Country = "Brasil"
         };

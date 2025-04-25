@@ -72,8 +72,8 @@ namespace Customers.Management.Infra.Migrations
 
                     b.Property<string>("ZipCode")
                         .IsRequired()
-                        .HasMaxLength(15)
-                        .HasColumnType("nvarchar(15)");
+                        .HasMaxLength(8)
+                        .HasColumnType("nvarchar(8)");
 
                     b.HasKey("Id");
 

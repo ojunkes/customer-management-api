@@ -61,7 +61,7 @@ public class MappingProfileTests
             City = "Cidade",
             State = "Estado",
             Country = "Brasil",
-            ZipCode = "12345-678",
+            ZipCode = "12345678",
             SignupChannel = SignupChannel.Website
         };
 

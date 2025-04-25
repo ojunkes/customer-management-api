@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Customers.Management.Infra.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250425032333_CreateTable_Customer")]
+    [Migration("20250425035843_CreateTable_Customer")]
     partial class CreateTable_Customer
     {
         /// <inheritdoc />
@@ -75,8 +75,8 @@ namespace Customers.Management.Infra.Migrations
 
                     b.Property<string>("ZipCode")
                         .IsRequired()
-                        .HasMaxLength(15)
-                        .HasColumnType("nvarchar(15)");
+                        .HasMaxLength(8)
+                        .HasColumnType("nvarchar(8)");
 
                     b.HasKey("Id");
 

@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
@@ -20,7 +21,7 @@ namespace Customers.Management.Infra.Migrations
                     DateOfBirth = table.Column<DateOnly>(type: "date", nullable: false),
                     Address = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     City = table.Column<string>(type: "nvarchar(40)", maxLength: 40, nullable: false),
-                    ZipCode = table.Column<string>(type: "nvarchar(15)", maxLength: 15, nullable: false),
+                    ZipCode = table.Column<string>(type: "nvarchar(8)", maxLength: 8, nullable: false),
                     State = table.Column<string>(type: "nvarchar(40)", maxLength: 40, nullable: false),
                     Country = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false),
                     SignupChannel = table.Column<int>(type: "int", nullable: false),

@@ -27,7 +27,7 @@ public class CustomerUpdateValidator : AbstractValidator<CustomerRequest>
             .When(x => !string.IsNullOrWhiteSpace(x.City));
 
         RuleFor(x => x.ZipCode)
-            .Matches(@"^\d{5}-?\d{3}$")
+            .Matches(@"^\d{8}$")
             .When(x => !string.IsNullOrWhiteSpace(x.ZipCode));
 
         RuleFor(x => x.State)
