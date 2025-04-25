@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
+using Customers.Management.Application.Commons;
 using Customers.Management.Application.Requests;
 using Customers.Management.Application.Responses;
-using Customers.Management.Application.Commons;
 using Customers.Management.Domain.Entities;
 using Customers.Management.Infra.Repositories;
 

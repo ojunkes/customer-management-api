@@ -1,5 +1,5 @@
-﻿using Customers.Management.Application.Responses;
-using Customers.Management.Application.Commons;
+﻿using Customers.Management.Application.Commons;
+using Customers.Management.Application.Responses;
 using Customers.Management.WebApi.Middlewares;
 using FluentAssertions;
 using Microsoft.AspNetCore.Http;
