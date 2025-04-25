@@ -27,22 +27,22 @@ public class CustomerInsertValidatorMessagesTests
     }
 
     [Fact]
-    public void Should_Validate_Cpf_ErrorMessages_When_Empty()
+    public void Should_Validate_TaxId_ErrorMessages_When_Empty()
     {
-        var model = new CustomerRequest { Cpf = "" };
+        var model = new CustomerRequest { TaxId = "" };
         var result = _validator.TestValidate(model);
 
-        result.ShouldHaveValidationErrorFor(x => x.Cpf)
+        result.ShouldHaveValidationErrorFor(x => x.TaxId)
               .WithErrorMessage("O campo CPF é obrigatório.");
     }
 
     [Fact]
-    public void Should_Validate_Cpf_ErrorMessages_When_Invalid()
+    public void Should_Validate_TaxId_ErrorMessages_When_Invalid()
     {
-        var model = new CustomerRequest { Cpf = "1234" };
+        var model = new CustomerRequest { TaxId = "1234" };
         var result = _validator.TestValidate(model);
 
-        result.ShouldHaveValidationErrorFor(x => x.Cpf)
+        result.ShouldHaveValidationErrorFor(x => x.TaxId)
               .WithErrorMessage("CPF deve conter 11 dígitos.");
     }
 
@@ -117,13 +117,13 @@ public class CustomerInsertValidatorMessagesTests
     }
 
     [Fact]
-    public void Should_Validate_Status_ErrorMessage()
+    public void Should_Validate_SignupChannel_ErrorMessage()
     {
-        var model = new CustomerRequest { Status = null };
+        var model = new CustomerRequest { SignupChannel = null };
         var result = _validator.TestValidate(model);
 
-        result.ShouldHaveValidationErrorFor(x => x.Status)
-              .WithErrorMessage("O campo Status é obrigatório.");
+        result.ShouldHaveValidationErrorFor(x => x.SignupChannel)
+              .WithErrorMessage("O campo Canal de Inscrição é obrigatório.");
     }
 
     [Fact]
@@ -132,14 +132,14 @@ public class CustomerInsertValidatorMessagesTests
         var model = new CustomerRequest
         {
             Name = "Anderson",
-            Cpf = "12345678901",
+            TaxId = "12345678901",
             DateOfBirth = new DateOnly(1995, 5, 20),
             Address = "Rua dos Testes",
             City = "São Paulo",
             ZipCode = "12345-678",
             State = "SP",
             Country = "Brasil",
-            Status = StatusCustomer.Active
+            SignupChannel = SignupChannel.Website
         };
 
         var result = _validator.TestValidate(model);

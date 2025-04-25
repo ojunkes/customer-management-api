@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
 using Customers.Management.Application.AutoMappers;
+using Customers.Management.Application.Commons;
 using Customers.Management.Application.Requests;
 using Customers.Management.Application.Responses;
-using Customers.Management.Application.Shared;
 using Customers.Management.Domain.Entities;
 using Customers.Management.Domain.Enums;
 using FluentAssertions;
@@ -32,20 +32,20 @@ public class MappingProfileTests
                                     "12345-123",
                                     "Estado 1",
                                     "País 1",
-                                    StatusCustomer.Active);
+                                    SignupChannel.Website);
 
         var result = _mapper.Map<CustomerResponse>(customer);
 
         result.Should().NotBeNull();
         result.Name.Should().Be(customer.Name);
-        result.Cpf.Should().Be(customer.Cpf);
+        result.TaxId.Should().Be(customer.TaxId);
         result.DateOfBirth.Should().Be(customer.DateOfBirth);
         result.Address.Should().Be(customer.Address);
         result.City.Should().Be(customer.City);
         result.ZipCode.Should().Be(customer.ZipCode);
         result.State.Should().Be(customer.State);
         result.Country.Should().Be(customer.Country);
-        result.Status.Should().Be(StatusCustomer.Active.GetDescription());
+        result.SignupChannel.Should().Be(SignupChannel.Website.GetDescription());
     }
 
     [Fact]
@@ -55,28 +55,28 @@ public class MappingProfileTests
         {
             Id = Guid.NewGuid(),
             Name = "Maria",
-            Cpf = "12345678901",
+            TaxId = "12345678901",
             DateOfBirth = DateOnly.FromDateTime(DateTime.Now),
             Address = "Rua 1",
             City = "Cidade",
             State = "Estado",
             Country = "Brasil",
             ZipCode = "12345-678",
-            Status = StatusCustomer.Inactive
+            SignupChannel = SignupChannel.Website
         };
 
         var result = _mapper.Map<Customer>(request);
 
         result.Should().NotBeNull();
         result.Name.Should().Be(request.Name);
-        result.Cpf.Should().Be(request.Cpf);
+        result.TaxId.Should().Be(request.TaxId);
         result.DateOfBirth.Should().Be(request.DateOfBirth);
         result.Address.Should().Be(request.Address);
         result.City.Should().Be(request.City);
         result.ZipCode.Should().Be(request.ZipCode);
         result.State.Should().Be(request.State);
         result.Country.Should().Be(request.Country);
-        result.Status.Should().Be(StatusCustomer.Inactive);
+        result.SignupChannel.Should().Be(SignupChannel.Website);
     }
 
     [Fact]
@@ -86,13 +86,13 @@ public class MappingProfileTests
         {
             Name = null,
             DateOfBirth = null,
-            Status = null
+            SignupChannel = null
         };
 
         var result = _mapper.Map<Customer>(request);
 
         result.Name.Should().BeNull();
         result.DateOfBirth.Should().Be(default);
-        result.Status.Should().Be(default);
+        result.SignupChannel.Should().Be(default);
     }
 }

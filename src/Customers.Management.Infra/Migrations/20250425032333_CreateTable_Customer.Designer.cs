@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Customers.Management.Infra.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250424032650_CreateTable_Customer")]
+    [Migration("20250425032333_CreateTable_Customer")]
     partial class CreateTable_Customer
     {
         /// <inheritdoc />
@@ -46,11 +46,6 @@ namespace Customers.Management.Infra.Migrations
                         .HasMaxLength(30)
                         .HasColumnType("nvarchar(30)");
 
-                    b.Property<string>("Cpf")
-                        .IsRequired()
-                        .HasMaxLength(11)
-                        .HasColumnType("nvarchar(11)");
-
                     b.Property<DateTimeOffset>("CreatedAt")
                         .HasColumnType("DATETIMEOFFSET");
 
@@ -65,13 +60,18 @@ namespace Customers.Management.Infra.Migrations
                         .HasMaxLength(60)
                         .HasColumnType("nvarchar(60)");
 
+                    b.Property<int>("SignupChannel")
+                        .HasColumnType("int");
+
                     b.Property<string>("State")
                         .IsRequired()
                         .HasMaxLength(40)
                         .HasColumnType("nvarchar(40)");
 
-                    b.Property<int>("Status")
-                        .HasColumnType("int");
+                    b.Property<string>("TaxId")
+                        .IsRequired()
+                        .HasMaxLength(11)
+                        .HasColumnType("nvarchar(11)");
 
                     b.Property<string>("ZipCode")
                         .IsRequired()
@@ -80,7 +80,7 @@ namespace Customers.Management.Infra.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("Cpf")
+                    b.HasIndex("TaxId")
                         .IsUnique();
 
                     b.ToTable("Customer", (string)null);

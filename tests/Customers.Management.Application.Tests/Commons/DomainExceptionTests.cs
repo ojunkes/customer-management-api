@@ -1,8 +1,8 @@
-﻿using Customers.Management.Application.Shared;
+﻿using Customers.Management.Application.Commons;
 using FluentAssertions;
 using Xunit;
 
-namespace Customers.Management.Application.Tests.Shared;
+namespace Customers.Management.Application.Tests.Commons;
 
 public class DomainExceptionTests
 {

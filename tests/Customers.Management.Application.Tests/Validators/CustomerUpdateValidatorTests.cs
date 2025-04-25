@@ -43,12 +43,12 @@ public class CustomerUpdateValidatorTests
     }
 
     [Fact]
-    public void Should_Have_Error_When_Cpf_Is_Invalid()
+    public void Should_Have_Error_When_TaxId_Is_Invalid()
     {
-        var model = new CustomerRequest { Cpf = "123456789" };
+        var model = new CustomerRequest { TaxId = "123456789" };
         var result = _validator.TestValidate(model);
 
-        result.ShouldHaveValidationErrorFor(x => x.Cpf);
+        result.ShouldHaveValidationErrorFor(x => x.TaxId);
     }
 
     [Fact]
@@ -139,7 +139,7 @@ public class CustomerUpdateValidatorTests
         {
             Id = Guid.NewGuid(),
             Name = "Maria",
-            Cpf = "12345678901",
+            TaxId = "12345678901",
             Address = "Rua Central, 123",
             City = "Curitiba",
             ZipCode = "12345-678",

@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using Customers.Management.Application.Requests;
 using Customers.Management.Application.Responses;
-using Customers.Management.Application.Shared;
+using Customers.Management.Application.Commons;
 using Customers.Management.Domain.Entities;
 using Customers.Management.Infra.Repositories;
 
@@ -43,7 +43,7 @@ internal class CustomerService : ICustomerService
         if (request?.Id != Guid.Empty)
             throw new DomainException("Id informado no corpo da requisição.");
 
-        var customerExist = await _customerRepository.GetByCpfAsync(request.Cpf!, cancellationToken);
+        var customerExist = await _customerRepository.GetByTaxIdAsync(request.TaxId!, cancellationToken);
         if (customerExist != null)
             throw new DomainException("CPF já consta na base de dados.");
 

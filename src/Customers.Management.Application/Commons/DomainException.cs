@@ -1,4 +1,4 @@
-﻿namespace Customers.Management.Application.Shared;
+﻿namespace Customers.Management.Application.Commons;
 
 public class DomainException : Exception
 {

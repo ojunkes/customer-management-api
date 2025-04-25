@@ -8,7 +8,7 @@ public interface ICustomerRepository
 
     Task<Customer?> GetByIdAsync(Guid id, CancellationToken cancellationToken);
 
-    Task<Customer?> GetByCpfAsync(string cpf, CancellationToken cancellationToken);
+    Task<Customer?> GetByTaxIdAsync(string taxId, CancellationToken cancellationToken);
 
     Task InsertAsync(Customer customer, CancellationToken cancellationToken);
 

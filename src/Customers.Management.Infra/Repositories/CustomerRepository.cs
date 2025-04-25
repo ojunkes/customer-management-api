@@ -26,10 +26,10 @@ internal class CustomerRepository : ICustomerRepository
             .FirstOrDefaultAsync(c => c.Id == id, cancellationToken);
     }
 
-    public async Task<Customer?> GetByCpfAsync(string cpf, CancellationToken cancellationToken)
+    public async Task<Customer?> GetByTaxIdAsync(string taxId, CancellationToken cancellationToken)
     {
         return await _context.GetDbSet<Customer>()
-            .FirstOrDefaultAsync(c => c.Cpf == cpf, cancellationToken);
+            .FirstOrDefaultAsync(c => c.TaxId == taxId, cancellationToken);
     }
 
     public async Task InsertAsync(Customer customer, CancellationToken cancellationToken)

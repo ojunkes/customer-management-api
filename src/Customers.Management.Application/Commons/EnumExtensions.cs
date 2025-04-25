@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace Customers.Management.Application.Shared;
+namespace Customers.Management.Application.Commons;
 
 public static class EnumExtensions
 {

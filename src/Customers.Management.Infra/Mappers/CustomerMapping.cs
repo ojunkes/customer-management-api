@@ -16,11 +16,11 @@ namespace Customers.Management.Infra.Mappers
                 .IsRequired()
                 .HasMaxLength(60);
 
-            builder.Property(c => c.Cpf)
+            builder.Property(c => c.TaxId)
                 .IsRequired()
                 .HasMaxLength(11);
 
-            builder.HasIndex(c => c.Cpf)
+            builder.HasIndex(c => c.TaxId)
                 .IsUnique();
 
             builder.Property(c => c.DateOfBirth)

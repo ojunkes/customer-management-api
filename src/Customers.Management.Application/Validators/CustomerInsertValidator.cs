@@ -11,7 +11,7 @@ public class CustomerInsertValidator : AbstractValidator<CustomerRequest>
             .NotEmpty().WithMessage("O campo Nome é obrigatório.")
             .Length(2, 60);
 
-        RuleFor(x => x.Cpf)
+        RuleFor(x => x.TaxId)
             .NotEmpty().WithMessage("O campo CPF é obrigatório.")
             .Matches(@"^\d{11}$").WithMessage("CPF deve conter 11 dígitos.");
 
@@ -38,8 +38,8 @@ public class CustomerInsertValidator : AbstractValidator<CustomerRequest>
             .NotEmpty().WithMessage("O campo País é obrigatório.")
             .Length(2, 30);
 
-        RuleFor(x => x.Status)
-            .NotNull().WithMessage("O campo Status é obrigatório.");
+        RuleFor(x => x.SignupChannel)
+            .NotNull().WithMessage("O campo Canal de Inscrição é obrigatório.");
     }
 }
 

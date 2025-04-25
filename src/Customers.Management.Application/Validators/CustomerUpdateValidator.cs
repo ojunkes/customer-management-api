@@ -14,9 +14,9 @@ public class CustomerUpdateValidator : AbstractValidator<CustomerRequest>
             .Length(2, 60)
             .When(x => !string.IsNullOrWhiteSpace(x.Name));
 
-        RuleFor(x => x.Cpf)
+        RuleFor(x => x.TaxId)
             .Matches(@"^\d{11}$")
-            .When(x => !string.IsNullOrWhiteSpace(x.Cpf));
+            .When(x => !string.IsNullOrWhiteSpace(x.TaxId));
 
         RuleFor(x => x.Address)
             .Length(2, 100)
@@ -39,4 +39,3 @@ public class CustomerUpdateValidator : AbstractValidator<CustomerRequest>
             .When(x => !string.IsNullOrWhiteSpace(x.Country));
     }
 }
-

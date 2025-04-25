@@ -1,5 +1,5 @@
-﻿using Customers.Management.Application.Responses;
-using Customers.Management.Application.Shared;
+﻿using Customers.Management.Application.Commons;
+using Customers.Management.Application.Responses;
 using System.Text.Json;
 
 namespace Customers.Management.WebApi.Middlewares;

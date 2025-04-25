@@ -37,17 +37,17 @@ public class CustomerRepositoryTests : IClassFixture<FixtureServiceProvider>
 
         customer.Should().NotBeNull();
         customer.Name.Should().Be("João Alberto");
-        customer.Cpf.Should().Be("12345678944");
+        customer.TaxId.Should().Be("12345678944");
     }
 
     [Fact, Priority(3)]
-    public async Task GetByCpfAsync_ShouldReturnCustomer()
+    public async Task GetByTaxIdAsync_ShouldReturnCustomer()
     {
-        var customer = await _customerRepository.GetByCpfAsync("12345678901", new CancellationToken());
+        var customer = await _customerRepository.GetByTaxIdAsync("12345678901", new CancellationToken());
 
         customer.Should().NotBeNull();
         customer.Name.Should().Be("Anderson J.");
-        customer.Cpf.Should().Be("12345678901");
+        customer.TaxId.Should().Be("12345678901");
     }
 
     [Fact, Priority(4)]
@@ -63,7 +63,7 @@ public class CustomerRepositoryTests : IClassFixture<FixtureServiceProvider>
             "89045-123",
             "Santa Catarina",
             "Brasil",
-            StatusCustomer.Active
+            SignupChannel.Website
         );
         await _customerRepository.InsertAsync(newCustomer, new CancellationToken());
         await _customerRepository.CommitAsync();
@@ -72,7 +72,7 @@ public class CustomerRepositoryTests : IClassFixture<FixtureServiceProvider>
 
         customer.Should().NotBeNull();
         customer.Name.Should().Be("Teste Insert");
-        customer.Cpf.Should().Be("12345678999");
+        customer.TaxId.Should().Be("12345678999");
     }
 
     [Fact, Priority(5)]
@@ -80,15 +80,15 @@ public class CustomerRepositoryTests : IClassFixture<FixtureServiceProvider>
     {
         var customer = await _customerRepository.GetByIdAsync(Guid.Parse("4411dbce-cf01-4565-a307-6dc237c777b6"), new CancellationToken());
 
-        typeof(Customer).GetProperty("Cpf")?.SetValue(customer, "99999999999");
+        typeof(Customer).GetProperty("TaxId")?.SetValue(customer, "99999999999");
 
         await _customerRepository.Update(customer!, new CancellationToken());
         await _customerRepository.CommitAsync();
 
-        var customerNewCpf = await _customerRepository.GetByIdAsync(Guid.Parse("4411dbce-cf01-4565-a307-6dc237c777b6"), new CancellationToken());
+        var customerNewTaxId = await _customerRepository.GetByIdAsync(Guid.Parse("4411dbce-cf01-4565-a307-6dc237c777b6"), new CancellationToken());
 
-        customerNewCpf.Should().NotBeNull();
-        customerNewCpf.Cpf.Should().Be("99999999999");
+        customerNewTaxId.Should().NotBeNull();
+        customerNewTaxId.TaxId.Should().Be("99999999999");
     }
 
     [Fact, Priority(6)]
@@ -119,7 +119,7 @@ public class CustomerRepositoryTests : IClassFixture<FixtureServiceProvider>
             "89045-123",
             "Santa Catarina",
             "Brasil",
-            StatusCustomer.Active
+            SignupChannel.Website
         );
         var customer2 = new Customer(
             Guid.Parse("5f1a5ccf-4066-472f-9606-bb00acdcb5b0"),
@@ -131,7 +131,7 @@ public class CustomerRepositoryTests : IClassFixture<FixtureServiceProvider>
             "89045-123",
             "Santa Catarina",
             "Brasil",
-            StatusCustomer.Active
+            SignupChannel.Website
         );
         var customer3 = new Customer(
             Guid.Parse("4411dbce-cf01-4565-a307-6dc237c777b6"),
@@ -143,7 +143,7 @@ public class CustomerRepositoryTests : IClassFixture<FixtureServiceProvider>
             "89045-123",
             "Santa Catarina",
             "Brasil",
-            StatusCustomer.Active
+            SignupChannel.Website
         );
 
         _customerRepository.InsertAsync(customer1, new CancellationToken()).Wait();
