@@ -1,5 +1,6 @@
 using Customers.Management.Application.DependencyInjection;
 using Customers.Management.Infra.DependencyInjection;
+using Customers.Management.WebApi.Extensions;
 using Customers.Management.WebApi.Middlewares;
 using System.Diagnostics.CodeAnalysis;
 
@@ -38,6 +39,8 @@ public static class Program
 
         app.UseMiddleware<ApplicationHandlingMiddleware>();
 
+        app.UseHttpsRedirection();
+
         app.UseCors();
 
         if (app.Environment.IsDevelopment())
@@ -46,11 +49,11 @@ public static class Program
             app.UseSwaggerUI();
         }
 
-        app.UseHttpsRedirection();
-
         app.UseAuthorization();
 
         app.MapControllers();
+
+        app.UseDatabaseMigration();
 
         app.Run();
     }
