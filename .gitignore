@@ -30,8 +30,8 @@ bld/
 project.lock.json
 project.fragment.lock.json
 artifacts/
-appsettings.json
-launchSettings.json
+# appsettings.json
+# launchSettings.json
 
 # ASP.NET Scaffolding
 ScaffoldingReadMe.txt
