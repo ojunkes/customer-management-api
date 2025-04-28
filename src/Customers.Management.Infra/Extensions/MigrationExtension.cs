@@ -2,9 +2,11 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Customers.Management.Infra.Extensions;
 
+[ExcludeFromCodeCoverage]
 public static class MigrationExtension
 {
     public static void UseDatabaseMigration(this IApplicationBuilder app)

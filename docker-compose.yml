@@ -8,13 +8,12 @@ services:
     container_name: customer_management_webapi_container
     ports:
       - "8080:80"
-      - "8443:443"
     depends_on:
       - db
     environment:
       - ConnectionStrings__DefaultConnection=Server=db;Database=Portfolio;User=sa;Password=Xpto1234;TrustServerCertificate=True;
       - ASPNETCORE_ENVIRONMENT=Development
-      - ASPNETCORE_URLS=https://+:443;http://+:80
+      - ASPNETCORE_URLS=http://+:80
     networks: 
       - mynetwork
 
