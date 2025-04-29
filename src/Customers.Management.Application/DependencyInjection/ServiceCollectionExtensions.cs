@@ -31,8 +31,6 @@ public static class ServiceCollectionExtensions
             });
         });
 
-        servicesCollection.AddMassTransitHostedService();
-
         servicesCollection.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
         servicesCollection.AddValidatorsFromAssemblyContaining<CustomerInsertValidator>();

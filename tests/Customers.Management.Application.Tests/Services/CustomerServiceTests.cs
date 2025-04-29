@@ -7,6 +7,7 @@ using Customers.Management.Domain.Entities;
 using Customers.Management.Domain.Enums;
 using Customers.Management.Infra.Repositories;
 using FluentAssertions;
+using MassTransit;
 using Moq;
 using Xunit;
 
@@ -15,15 +16,17 @@ namespace Customers.Management.Application.Tests.Services;
 public class CustomerServiceTests
 {
     private readonly Mock<ICustomerRepository> _repositoryMock;
+    private readonly Mock<IPublishEndpoint> _publishEndpointMock;
     private readonly Mock<IMapper> _mapperMock;
     private readonly ICustomerService _customerService;
 
     public CustomerServiceTests()
     {
         _repositoryMock = new Mock<ICustomerRepository>();
+        _publishEndpointMock = new Mock<IPublishEndpoint>();
         _mapperMock = new Mock<IMapper>();
 
-        _customerService = new CustomerService(_repositoryMock.Object, _mapperMock.Object);
+        _customerService = new CustomerService(_repositoryMock.Object, _publishEndpointMock.Object, _mapperMock.Object);
     }
 
     [Fact]
