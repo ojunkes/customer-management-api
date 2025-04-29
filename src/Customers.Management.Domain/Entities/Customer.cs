@@ -16,7 +16,6 @@ public class Customer : BaseEntity
     public SignupChannel SignupChannel { get; private set; }
 
     public Customer(
-        Guid id,
         string name,
         string taxId,
         DateOnly dateOfBirth,
@@ -27,7 +26,6 @@ public class Customer : BaseEntity
         string country,
         SignupChannel signupChannel)
     {
-        base.Id = id;
         Name = name;
         TaxId = taxId;
         DateOfBirth = dateOfBirth;

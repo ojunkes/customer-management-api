@@ -54,7 +54,6 @@ public class CustomerRepositoryTests : IClassFixture<FixtureServiceProvider>
     public async Task InsertAsync_ShouldInsertCustomer()
     {
         var newCustomer = new Customer(
-            Guid.Parse("5fab0735-04d3-4c6d-a4e9-4f3cd4e05af5"),
             "Teste Insert",
             "12345678999",
             DateOnly.FromDateTime(DateTime.Now),
@@ -65,6 +64,8 @@ public class CustomerRepositoryTests : IClassFixture<FixtureServiceProvider>
             "Brasil",
             SignupChannel.Website
         );
+        typeof(Customer).GetProperty("Id")?.SetValue(newCustomer, Guid.Parse("5fab0735-04d3-4c6d-a4e9-4f3cd4e05af5"));
+
         await _customerRepository.InsertAsync(newCustomer, new CancellationToken());
         await _customerRepository.CommitAsync();
 
@@ -110,7 +111,6 @@ public class CustomerRepositoryTests : IClassFixture<FixtureServiceProvider>
             return;
 
         var customer1 = new Customer(
-            Guid.Parse("a57c8ca4-99c0-4f07-8e72-0656dc060c2e"),
             "Anderson J.",
             "12345678901",
             DateOnly.FromDateTime(DateTime.Now),
@@ -121,8 +121,8 @@ public class CustomerRepositoryTests : IClassFixture<FixtureServiceProvider>
             "Brasil",
             SignupChannel.Website
         );
+        typeof(Customer).GetProperty("Id")?.SetValue(customer1, Guid.Parse("a57c8ca4-99c0-4f07-8e72-0656dc060c2e"));
         var customer2 = new Customer(
-            Guid.Parse("5f1a5ccf-4066-472f-9606-bb00acdcb5b0"),
             "João Alberto",
             "12345678944",
             DateOnly.FromDateTime(DateTime.Now),
@@ -133,8 +133,8 @@ public class CustomerRepositoryTests : IClassFixture<FixtureServiceProvider>
             "Brasil",
             SignupChannel.Website
         );
+        typeof(Customer).GetProperty("Id")?.SetValue(customer2, Guid.Parse("5f1a5ccf-4066-472f-9606-bb00acdcb5b0"));
         var customer3 = new Customer(
-            Guid.Parse("4411dbce-cf01-4565-a307-6dc237c777b6"),
             "Francisco",
             "12345678955",
             DateOnly.FromDateTime(DateTime.Now),
@@ -145,6 +145,7 @@ public class CustomerRepositoryTests : IClassFixture<FixtureServiceProvider>
             "Brasil",
             SignupChannel.Website
         );
+        typeof(Customer).GetProperty("Id")?.SetValue(customer3, Guid.Parse("4411dbce-cf01-4565-a307-6dc237c777b6"));
 
         _customerRepository.InsertAsync(customer1, new CancellationToken()).Wait();
         _customerRepository.InsertAsync(customer2, new CancellationToken()).Wait();

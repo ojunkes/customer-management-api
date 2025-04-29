@@ -32,7 +32,6 @@ public class AddressRepositoryTests : IClassFixture<FixtureServiceProvider>
     public async Task InsertAsync_ShouldInsertAddress()
     {
         var newAddress = new Address(
-            Guid.Parse("a1f20d7d-5c41-438d-8eb2-2a0d33443e19"),
             "49000221",
             "Rua Odilon Gonçalves da Silveira",
             string.Empty,
@@ -79,7 +78,6 @@ public class AddressRepositoryTests : IClassFixture<FixtureServiceProvider>
             return;
 
         var address1 = new Address(
-            Guid.Parse("a57c8ca4-99c0-4f07-8e72-0656dc060c2e"),
             "89027401",
             "Rua Bruno Schreiber",
             string.Empty,
@@ -95,7 +93,6 @@ public class AddressRepositoryTests : IClassFixture<FixtureServiceProvider>
             "8047"
         );
         var address2 = new Address(
-            Guid.Parse("e28fbfdd-1c5c-4e0f-8d6e-a4f2b25725f5"),
             "89032605",
             "Rua José Bagatolli",
             string.Empty,

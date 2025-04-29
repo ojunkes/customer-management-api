@@ -35,8 +35,8 @@ public class CustomerServiceTests
     {
         var customers = new List<Customer>()
         {
-            new Customer(Guid.NewGuid(), "Nome 1", "12345678901", DateOnly.FromDateTime(DateTime.Now), "Rua 1", "Cidade 1", "12345-123", "Estado 1", "País 1", SignupChannel.Website),
-            new Customer(Guid.NewGuid(), "Nome 2", "12345678902", DateOnly.FromDateTime(DateTime.Now), "Rua 2", "Cidade 2", "12345-123", "Estado 2", "País 2", SignupChannel.Partner)
+            new Customer("Nome 1", "12345678901", DateOnly.FromDateTime(DateTime.Now), "Rua 1", "Cidade 1", "12345-123", "Estado 1", "País 1", SignupChannel.Website),
+            new Customer("Nome 2", "12345678902", DateOnly.FromDateTime(DateTime.Now), "Rua 2", "Cidade 2", "12345-123", "Estado 2", "País 2", SignupChannel.Partner)
         };
 
         var customersResponse = new List<CustomerResponse>
@@ -99,7 +99,7 @@ public class CustomerServiceTests
     [Fact]
     public async Task GetCustomerByIdAsync_ShouldReturnCustomer()
     {
-        var customer = new Customer(Guid.NewGuid(), "Nome 1", "12345678901", DateOnly.FromDateTime(DateTime.Now), "Rua 1", "Cidade 1", "12345-123", "Estado 1", "País 1", SignupChannel.Website);
+        var customer = new Customer("Nome 1", "12345678901", DateOnly.FromDateTime(DateTime.Now), "Rua 1", "Cidade 1", "12345-123", "Estado 1", "País 1", SignupChannel.Website);
 
         var customerResponse = new CustomerResponse()
         {
@@ -157,7 +157,7 @@ public class CustomerServiceTests
             SignupChannel = SignupChannel.Website
         };
 
-        var customer = new Customer(Guid.NewGuid(), "Nome 1", "12345678901", DateOnly.FromDateTime(DateTime.Now), "Rua 1", "Cidade 1", "12345-123", "Estado 1", "País 1", SignupChannel.Website);
+        var customer = new Customer("Nome 1", "12345678901", DateOnly.FromDateTime(DateTime.Now), "Rua 1", "Cidade 1", "12345-123", "Estado 1", "País 1", SignupChannel.Website);
 
         var customerResponse = new CustomerResponse()
         {
@@ -235,7 +235,7 @@ public class CustomerServiceTests
             SignupChannel = SignupChannel.Website
         };
 
-        var customer = new Customer(Guid.NewGuid(), "Nome 1", "12345678901", DateOnly.FromDateTime(DateTime.Now), "Rua 1", "Cidade 1", "12345-123", "Estado 1", "País 1", SignupChannel.Website);
+        var customer = new Customer("Nome 1", "12345678901", DateOnly.FromDateTime(DateTime.Now), "Rua 1", "Cidade 1", "12345-123", "Estado 1", "País 1", SignupChannel.Website);
 
         _repositoryMock.Setup(r => r.GetByTaxIdAsync(It.IsAny<string>(), It.IsAny<CancellationToken>()))
             .ReturnsAsync(customer);
@@ -268,7 +268,7 @@ public class CustomerServiceTests
             SignupChannel = SignupChannel.Website
         };
 
-        var customer = new Customer(Guid.NewGuid(), "Nome 1", "12345678901", DateOnly.FromDateTime(DateTime.Now), "Rua 1", "Cidade 1", "12345-123", "Estado 1", "País 1", SignupChannel.Website);
+        var customer = new Customer("Nome 1", "12345678901", DateOnly.FromDateTime(DateTime.Now), "Rua 1", "Cidade 1", "12345-123", "Estado 1", "País 1", SignupChannel.Website);
 
         var customerResponse = new CustomerResponse()
         {
@@ -334,7 +334,7 @@ public class CustomerServiceTests
     [Fact]
     public async Task DeleteCustomerAsync_ShouldDeleteCustomer()
     {
-        var customer = new Customer(Guid.NewGuid(), "Nome 1", "12345678901", DateOnly.FromDateTime(DateTime.Now), "Rua 1", "Cidade 1", "12345-123", "Estado 1", "País 1", SignupChannel.Website);
+        var customer = new Customer("Nome 1", "12345678901", DateOnly.FromDateTime(DateTime.Now), "Rua 1", "Cidade 1", "12345-123", "Estado 1", "País 1", SignupChannel.Website);
 
         _repositoryMock.Setup(r => r.GetByIdAsync(It.IsAny<Guid>(), It.IsAny<CancellationToken>()))
             .ReturnsAsync(customer);

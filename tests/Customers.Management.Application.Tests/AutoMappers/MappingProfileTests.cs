@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Castle.Core.Resource;
 using Customers.Management.Application.AutoMappers;
 using Customers.Management.Application.Commons;
 using Customers.Management.Application.Requests;
@@ -23,8 +24,7 @@ public class MappingProfileTests
     [Fact]
     public void CreateMap_ShouldMapCustomerToCustomerResponseWithStatusDescription()
     {
-        var customer = new Customer(Guid.NewGuid(),
-                                    "Nome 1",
+        var customer = new Customer("Nome 1",
                                     "12345678901",
                                     DateOnly.FromDateTime(DateTime.Now),
                                     "Rua 1",
