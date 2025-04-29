@@ -1,20 +1,28 @@
 ﻿using AutoMapper;
 using Customers.Management.Application.Commons;
+using Customers.Management.Application.Messages;
 using Customers.Management.Application.Requests;
 using Customers.Management.Application.Responses;
 using Customers.Management.Domain.Entities;
 using Customers.Management.Infra.Repositories;
+using MassTransit;
+using MassTransit.Transports;
 
 namespace Customers.Management.Application.Services;
 
 internal class CustomerService : ICustomerService
 {
     private readonly ICustomerRepository _customerRepository;
+    private IPublishEndpoint _publishEndpoint;
     private readonly IMapper _mapper;
 
-    public CustomerService(ICustomerRepository customerRepository, IMapper mapper)
+    public CustomerService(
+        ICustomerRepository customerRepository,
+        IPublishEndpoint publishEndpoint, 
+        IMapper mapper)
     {
         _customerRepository = customerRepository;
+        _publishEndpoint = publishEndpoint;
         _mapper = mapper;
     }
 
@@ -51,6 +59,8 @@ internal class CustomerService : ICustomerService
 
         await _customerRepository.InsertAsync(customer, cancellationToken);
         await _customerRepository.CommitAsync();
+
+        await _publishEndpoint.Publish(new ZipCodeMessage { ZipCode = request.ZipCode! });
 
         var customersResponse = _mapper.Map<CustomerResponse>(customer);
 
