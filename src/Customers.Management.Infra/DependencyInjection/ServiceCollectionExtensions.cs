@@ -27,6 +27,7 @@ public static class ServiceCollectionExtensions
     public static IServiceCollection AddRepositories(this IServiceCollection serviceCollection)
     {
         serviceCollection.AddScoped<ICustomerRepository, CustomerRepository>();
+        serviceCollection.AddScoped<IAddressRepository, AddressRepository>();
 
         return serviceCollection;
     }
