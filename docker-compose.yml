@@ -3,13 +3,14 @@ version: '3.8'
 services:
   customers.management.webapi:
     build:
-        context: .
-        dockerfile: src/Customers.Management.WebApi/Dockerfile
-    container_name: customer_management_webapi_container
+      context: .
+      dockerfile: src/Customers.Management.WebApi/Dockerfile
+    container_name: customers_management_webapi_container
     ports:
       - "8080:80"
     depends_on:
       - db
+      - rabbitmq
     environment:
       - ConnectionStrings__DefaultConnection=Server=db;Database=Portfolio;User=sa;Password=Xpto1234;TrustServerCertificate=True;
       - ASPNETCORE_ENVIRONMENT=Development
@@ -18,6 +19,22 @@ services:
       - RabbitMq__Username=guest
       - RabbitMq__Password=guest
     networks: 
+      - mynetwork
+
+  customers.management.consumer:
+    build:
+      context: .
+      dockerfile: src/Customers.Management.Consumer/Dockerfile
+    container_name: customers_management_consumer_container
+    depends_on:
+      - db
+      - rabbitmq
+    environment:
+      - ConnectionStrings__DefaultConnection=Server=db;Database=Portfolio;User=sa;Password=Xpto1234;TrustServerCertificate=True;
+      - RabbitMq__Host=rabbitmq
+      - RabbitMq__Username=guest
+      - RabbitMq__Password=guest
+    networks:
       - mynetwork
 
   db:
