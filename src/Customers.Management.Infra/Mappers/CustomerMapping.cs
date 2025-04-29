@@ -26,7 +26,7 @@ namespace Customers.Management.Infra.Mappers
             builder.Property(c => c.DateOfBirth)
                 .IsRequired();
 
-            builder.Property(c => c.Address)
+            builder.Property(c => c.Street)
                 .IsRequired()
                 .HasMaxLength(100);
 

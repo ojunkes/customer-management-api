@@ -57,13 +57,13 @@ public class CustomerInsertValidatorMessagesTests
     }
 
     [Fact]
-    public void Should_Validate_Address_ErrorMessage()
+    public void Should_Validate_Street_ErrorMessage()
     {
-        var model = new CustomerRequest { Address = "" };
+        var model = new CustomerRequest { Street = "" };
         var result = _validator.TestValidate(model);
 
-        result.ShouldHaveValidationErrorFor(x => x.Address)
-              .WithErrorMessage("O campo Endereço é obrigatório.");
+        result.ShouldHaveValidationErrorFor(x => x.Street)
+              .WithErrorMessage("O campo Rua é obrigatório.");
     }
 
     [Fact]
@@ -134,7 +134,7 @@ public class CustomerInsertValidatorMessagesTests
             Name = "Anderson",
             TaxId = "12345678901",
             DateOfBirth = new DateOnly(1995, 5, 20),
-            Address = "Rua dos Testes",
+            Street = "Rua dos Testes",
             City = "São Paulo",
             ZipCode = "12345678",
             State = "SP",

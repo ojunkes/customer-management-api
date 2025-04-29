@@ -8,7 +8,7 @@ public class Customer : BaseEntity
     public string Name { get; private set; } = null!;
     public string TaxId { get; private set; } = null!;
     public DateOnly DateOfBirth { get; private set; }
-    public string Address { get; private set; } = null!;
+    public string Street { get; private set; } = null!;
     public string City { get; private set; } = null!;
     public string ZipCode { get; private set; } = null!;
     public string State { get; private set; } = null!;
@@ -20,7 +20,7 @@ public class Customer : BaseEntity
         string name,
         string taxId,
         DateOnly dateOfBirth,
-        string address,
+        string street,
         string city,
         string zipCode,
         string state,
@@ -31,7 +31,7 @@ public class Customer : BaseEntity
         Name = name;
         TaxId = taxId;
         DateOfBirth = dateOfBirth;
-        Address = address;
+        Street = street;
         City = city;
         ZipCode = zipCode;
         State = state;

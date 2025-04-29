@@ -40,7 +40,7 @@ public class MappingProfileTests
         result.Name.Should().Be(customer.Name);
         result.TaxId.Should().Be(customer.TaxId);
         result.DateOfBirth.Should().Be(customer.DateOfBirth);
-        result.Address.Should().Be(customer.Address);
+        result.Street.Should().Be(customer.Street);
         result.City.Should().Be(customer.City);
         result.ZipCode.Should().Be(customer.ZipCode);
         result.State.Should().Be(customer.State);
@@ -57,7 +57,7 @@ public class MappingProfileTests
             Name = "Maria",
             TaxId = "12345678901",
             DateOfBirth = DateOnly.FromDateTime(DateTime.Now),
-            Address = "Rua 1",
+            Street = "Rua 1",
             City = "Cidade",
             State = "Estado",
             Country = "Brasil",
@@ -71,7 +71,7 @@ public class MappingProfileTests
         result.Name.Should().Be(request.Name);
         result.TaxId.Should().Be(request.TaxId);
         result.DateOfBirth.Should().Be(request.DateOfBirth);
-        result.Address.Should().Be(request.Address);
+        result.Street.Should().Be(request.Street);
         result.City.Should().Be(request.City);
         result.ZipCode.Should().Be(request.ZipCode);
         result.State.Should().Be(request.State);

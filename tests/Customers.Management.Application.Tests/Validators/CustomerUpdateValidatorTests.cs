@@ -52,21 +52,21 @@ public class CustomerUpdateValidatorTests
     }
 
     [Fact]
-    public void Should_Have_Error_When_Address_Is_TooShort()
+    public void Should_Have_Error_When_Street_Is_TooShort()
     {
-        var model = new CustomerRequest { Address = "A" };
+        var model = new CustomerRequest { Street = "A" };
         var result = _validator.TestValidate(model);
 
-        result.ShouldHaveValidationErrorFor(x => x.Address);
+        result.ShouldHaveValidationErrorFor(x => x.Street);
     }
 
     [Fact]
-    public void Should_Have_Error_When_Address_Is_TooLong()
+    public void Should_Have_Error_When_Street_Is_TooLong()
     {
-        var model = new CustomerRequest { Address = new string('A', 101) };
+        var model = new CustomerRequest { Street = new string('A', 101) };
         var result = _validator.TestValidate(model);
 
-        result.ShouldHaveValidationErrorFor(x => x.Address);
+        result.ShouldHaveValidationErrorFor(x => x.Street);
     }
 
     [Fact]
@@ -140,7 +140,7 @@ public class CustomerUpdateValidatorTests
             Id = Guid.NewGuid(),
             Name = "Maria",
             TaxId = "12345678901",
-            Address = "Rua Central, 123",
+            Street = "Rua Central, 123",
             City = "Curitiba",
             ZipCode = "12345678",
             State = "PR",
