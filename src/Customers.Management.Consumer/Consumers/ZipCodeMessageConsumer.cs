@@ -1,20 +1,69 @@
-﻿using Customers.Management.Domain.Messages;
+﻿using AutoMapper;
+using Customers.Management.Consumer.Adapters;
+using Customers.Management.Domain.Entities;
+using Customers.Management.Domain.Messages;
+using Customers.Management.Infra.Repositories;
 using MassTransit;
 
 namespace Customers.Management.Consumer.Consumers;
 
 public class ZipCodeMessageConsumer : IConsumer<ZipCodeMessage>
 {
-    public ZipCodeMessageConsumer()
+    private readonly ILogger<ZipCodeMessageConsumer> _logger;
+    private readonly IMapper _mapper;
+    private readonly IAddressRepository _addressRepository;
+    private readonly IViaCepAdapter _viaCepAdapter; 
+
+    public ZipCodeMessageConsumer(
+        ILogger<ZipCodeMessageConsumer> logger,
+        IMapper mapper,
+        IAddressRepository addressRepository,
+        IViaCepAdapter viaCepAdapter)
     {
+        _logger = logger;
+        _mapper = mapper;
+        _addressRepository = addressRepository; 
+        _viaCepAdapter = viaCepAdapter;
     }
 
-    public Task Consume(ConsumeContext<ZipCodeMessage> context)
+    public async Task Consume(ConsumeContext<ZipCodeMessage> context)
     {
         var zipCode = context.Message.ZipCode;
+        _logger.LogInformation("[Worker] CEP recebido: {zipCode}", zipCode);
 
-        Console.WriteLine($"[Worker] CEP recebido: {zipCode}");
+        var existingAddress = await _addressRepository.GetByZipCodeAsync(zipCode, context.CancellationToken);
+        if (!UpdateAddress(existingAddress))
+        {
+            _logger.LogInformation("[Worker] CEP já atualizado na base de CEP: {zipCode}", zipCode);
+            return;
+        }
 
-        return Task.CompletedTask;
+        var addressResponse = await _viaCepAdapter.GetAddressByZipCodeAsync(zipCode, context.CancellationToken);
+        if (addressResponse?.Cep == null)
+        {
+            _logger.LogWarning("[Worker] Não foi possível obter o endereço para o CEP: {zipCode}", zipCode);
+            return;
+        }
+
+        if (existingAddress != null)
+        {
+            _mapper.Map(addressResponse, existingAddress);
+            await _addressRepository.Update(existingAddress, context.CancellationToken);
+        }
+        else
+        {
+            var address = _mapper.Map<Address>(addressResponse);
+            await _addressRepository.InsertAsync(address, context.CancellationToken);
+        }
+        await _addressRepository.CommitAsync();
+    }
+
+    private bool UpdateAddress(Address? address)
+    {
+        if (address == null)
+            return true;
+
+        var lastUpdated = address.ModifiedAt ?? address.CreatedAt;
+        return (DateTimeOffset.UtcNow - lastUpdated).TotalDays > 365;
     }
 }

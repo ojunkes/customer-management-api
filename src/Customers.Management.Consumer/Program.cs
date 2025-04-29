@@ -1,3 +1,4 @@
+using Customers.Management.Consumer.Adapters;
 using Customers.Management.Consumer.Consumers;
 using Customers.Management.Infra.DependencyInjection;
 using MassTransit;
@@ -11,6 +12,8 @@ public static class Program
     public static void Main(string[] args)
     {
         var builder = Host.CreateApplicationBuilder(args);
+
+        builder.Services.AddLogging();
 
         builder.Services.AddDbContextSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")!);
         builder.Services.AddRepositories();
@@ -32,6 +35,10 @@ public static class Program
                 cfg.ConfigureEndpoints(context);
             });
         });
+
+        builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+        builder.Services.AddScoped<IViaCepAdapter, ViaCepAdapter>();
+        builder.Services.AddHttpClient<IViaCepAdapter, ViaCepAdapter>();
 
         var host = builder.Build();
         host.Run();
