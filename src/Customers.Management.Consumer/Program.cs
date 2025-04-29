@@ -1,4 +1,3 @@
-using Customers.Management.Consumer;
 using Customers.Management.Consumer.Consumers;
 using Customers.Management.Infra.DependencyInjection;
 using MassTransit;

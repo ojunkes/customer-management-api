@@ -17,7 +17,7 @@ internal class CustomerService : ICustomerService
 
     public CustomerService(
         ICustomerRepository customerRepository,
-        IPublishEndpoint publishEndpoint, 
+        IPublishEndpoint publishEndpoint,
         IMapper mapper)
     {
         _customerRepository = customerRepository;

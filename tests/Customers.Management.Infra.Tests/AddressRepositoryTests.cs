@@ -1,10 +1,8 @@
 ﻿using Customers.Management.Domain.Entities;
-using Customers.Management.Domain.Enums;
 using Customers.Management.Infra.Repositories;
 using Customers.Management.Infra.Tests.Fixtures;
 using FluentAssertions;
 using Xunit;
-using Xunit.Priority;
 
 namespace Customers.Management.Infra.Tests;
 
