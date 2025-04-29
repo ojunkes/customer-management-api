@@ -5,6 +5,7 @@ API para gerenciamento de clientes, desenvolvida com foco em boas práticas de a
 ## 📚 Tecnologias Utilizadas
 - ASP.NET Core 9
 - SQL Server
+- RabbitMQ
 - Docker & Docker Compose
 - AutoMapper
 - xUnit para testes
@@ -15,11 +16,10 @@ API para gerenciamento de clientes, desenvolvida com foco em boas práticas de a
 Antes de rodar o projeto, você precisa ter instalado:
 
 - [.NET 9 SDK](https://dotnet.microsoft.com/en-us/download)
-- [Docker](https://www.docker.com/) (opcional)
-- [SQL Server](https://www.microsoft.com/pt-br/sql-server/sql-server-downloads) (caso prefira rodar sem docker)
+- [Docker](https://www.docker.com/)
 - [Visual Studio 2022](https://visualstudio.microsoft.com/pt-br/vs/) ou [Visual Studio Code](https://code.visualstudio.com/) com extensões C#
 
-## 🚀 Como Rodar o Projeto (com Docker)
+## 🚀 Como Rodar o Projeto
 
 1. Clone o repositório:
    ```bash
