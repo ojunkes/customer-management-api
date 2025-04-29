@@ -5,6 +5,7 @@ using Customers.Management.Application.Responses;
 using Customers.Management.Application.Services;
 using Customers.Management.Domain.Entities;
 using Customers.Management.Domain.Enums;
+using Customers.Management.Domain.Messages;
 using Customers.Management.Infra.Repositories;
 using FluentAssertions;
 using MassTransit;
@@ -182,6 +183,7 @@ public class CustomerServiceTests
 
         _repositoryMock.Verify(r => r.InsertAsync(It.IsAny<Customer>(), It.IsAny<CancellationToken>()), Times.Once());
         _repositoryMock.Verify(r => r.CommitAsync(), Times.Once());
+        _publishEndpointMock.Verify(p => p.Publish(It.IsAny<ZipCodeMessage>(), It.IsAny<CancellationToken>()), Times.Once);
         result.Success.Should().BeTrue();
         result.Errors.Should().BeNull();
         result.Data!.Name.Should().Be(customer.Name);
@@ -214,6 +216,7 @@ public class CustomerServiceTests
 
         _repositoryMock.Verify(r => r.InsertAsync(It.IsAny<Customer>(), It.IsAny<CancellationToken>()), Times.Never());
         _repositoryMock.Verify(r => r.CommitAsync(), Times.Never());
+        _publishEndpointMock.Verify(p => p.Publish(It.IsAny<ZipCodeMessage>(), It.IsAny<CancellationToken>()), Times.Never);
     }
 
     [Fact]
@@ -245,6 +248,7 @@ public class CustomerServiceTests
 
         _repositoryMock.Verify(r => r.InsertAsync(It.IsAny<Customer>(), It.IsAny<CancellationToken>()), Times.Never());
         _repositoryMock.Verify(r => r.CommitAsync(), Times.Never());
+        _publishEndpointMock.Verify(p => p.Publish(It.IsAny<ZipCodeMessage>(), It.IsAny<CancellationToken>()), Times.Never);
     }
 
     [Fact]
