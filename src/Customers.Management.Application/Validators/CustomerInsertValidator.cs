@@ -19,7 +19,7 @@ public class CustomerInsertValidator : AbstractValidator<CustomerRequest>
             .NotNull().WithMessage("O campo Data de Nascimento é obrigatório.");
 
         RuleFor(x => x.Street)
-            .NotEmpty().WithMessage("O campo Endereço é obrigatório.")
+            .NotEmpty().WithMessage("O campo Rua é obrigatório.")
             .Length(2, 100);
 
         RuleFor(x => x.City)
