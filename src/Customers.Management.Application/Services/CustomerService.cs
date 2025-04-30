@@ -58,10 +58,7 @@ internal class CustomerService : ICustomerService
 
         await _customerRepository.InsertAsync(customer, cancellationToken);
         await _customerRepository.CommitAsync();
-
-        var zipCodeMessage = new ZipCodeMessage { ZipCode = request.ZipCode! };
-
-        await _publishEndpoint.Publish(zipCodeMessage, cancellationToken);
+        await PublishZipCodeMessageAsync(request.ZipCode!, cancellationToken);
 
         var customersResponse = _mapper.Map<CustomerResponse>(customer);
 
@@ -78,6 +75,7 @@ internal class CustomerService : ICustomerService
 
         await _customerRepository.Update(customer, cancellationToken);
         await _customerRepository.CommitAsync();
+        await PublishZipCodeMessageAsync(request.ZipCode!, cancellationToken);
 
         var customersResponse = _mapper.Map<CustomerResponse>(customer);
 
@@ -92,5 +90,12 @@ internal class CustomerService : ICustomerService
 
         await _customerRepository.DeleteAsync(customer, cancellationToken);
         await _customerRepository.CommitAsync();
+    }
+
+    private async Task PublishZipCodeMessageAsync(string zipCode, CancellationToken cancellationToken)
+    {
+        var zipCodeMessage = new ZipCodeMessage { ZipCode = zipCode };
+
+        await _publishEndpoint.Publish(zipCodeMessage, cancellationToken);
     }
 }
