@@ -5,92 +5,91 @@ using Customers.Management.Application.Validators;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics.CodeAnalysis;
 
-namespace Customer.Management.WebApi.Controllers
+namespace Customer.Management.WebApi.Controllers;
+
+[ApiController]
+[Route(RouteTemplate)]
+[Produces("application/json")]
+[ExcludeFromCodeCoverage]
+public class CustomerController : ControllerBase
 {
-    [ApiController]
-    [Route(RouteTemplate)]
-    [Produces("application/json")]
-    [ExcludeFromCodeCoverage]
-    public class CustomerController : ControllerBase
+    private const string RouteTemplate = "api/v1/customers";
+
+    private readonly ICustomerService _customerService;
+    private readonly CustomerInsertValidator _insertValidator;
+    private readonly CustomerUpdateValidator _updateValidator;
+
+    public CustomerController(
+        ICustomerService customerService,
+        CustomerInsertValidator insertValidator,
+        CustomerUpdateValidator updateValidator)
     {
-        private const string RouteTemplate = "api/v1/customers";
+        _customerService = customerService;
+        _insertValidator = insertValidator;
+        _updateValidator = updateValidator;
+    }
 
-        private readonly ICustomerService _customerService;
-        private readonly CustomerInsertValidator _insertValidator;
-        private readonly CustomerUpdateValidator _updateValidator;
+    [HttpGet]
+    [ProducesResponseType(typeof(BaseApiResponse<IEnumerable<CustomerResponse>>), StatusCodes.Status200OK)]
+    public async Task<IActionResult> GetAllAsync(CancellationToken cancellationToken)
+    {
+        var customers = await _customerService.GetAllCustomersAsync(cancellationToken);
 
-        public CustomerController(
-            ICustomerService customerService,
-            CustomerInsertValidator insertValidator,
-            CustomerUpdateValidator updateValidator)
-        {
-            _customerService = customerService;
-            _insertValidator = insertValidator;
-            _updateValidator = updateValidator;
-        }
+        return customers == null ? NoContent() : Ok(customers);
+    }
 
-        [HttpGet]
-        [ProducesResponseType(typeof(BaseApiResponse<IEnumerable<CustomerResponse>>), StatusCodes.Status200OK)]
-        public async Task<IActionResult> GetAllAsync(CancellationToken cancellationToken)
-        {
-            var customers = await _customerService.GetAllCustomersAsync(cancellationToken);
+    [HttpGet("{id:guid}")]
+    [ProducesResponseType(typeof(BaseApiResponse<CustomerResponse>), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(BaseApiResponse<object>), StatusCodes.Status400BadRequest)]
+    public async Task<IActionResult> GetCustomerAsync(Guid id, CancellationToken cancellationToken)
+    {
+        var customer = await _customerService.GetCustomerAsync(id, cancellationToken);
 
-            return customers == null ? NoContent() : Ok(customers);
-        }
+        return customer == null ? NoContent() : Ok(customer);
+    }
 
-        [HttpGet("{id:guid}")]
-        [ProducesResponseType(typeof(BaseApiResponse<CustomerResponse>), StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(BaseApiResponse<object>), StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> GetCustomerAsync(Guid id, CancellationToken cancellationToken)
-        {
-            var customer = await _customerService.GetCustomerAsync(id, cancellationToken);
+    [HttpPost]
+    [ProducesResponseType(typeof(BaseApiResponse<CustomerResponse>), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(BaseApiResponse<object>), StatusCodes.Status400BadRequest)]
+    public async Task<IActionResult> InsertCustomerAsync(CustomerRequest request, CancellationToken cancellationToken)
+    {
+        var result = await _insertValidator.ValidateAsync(request);
+        if (!result.IsValid)
+            return BadRequest(BaseApiResponse<object>.Fail(
+                result.Errors.Select(e => e.ErrorMessage)
+            ));
 
-            return customer == null ? NoContent() : Ok(customer);
-        }
+        var customer = await _customerService.InsertCustomerAsync(request, cancellationToken);
 
-        [HttpPost]
-        [ProducesResponseType(typeof(BaseApiResponse<CustomerResponse>), StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(BaseApiResponse<object>), StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> InsertCustomerAsync(CustomerRequest request, CancellationToken cancellationToken)
-        {
-            var result = await _insertValidator.ValidateAsync(request);
-            if (!result.IsValid)
-                return BadRequest(BaseApiResponse<object>.Fail(
-                    result.Errors.Select(e => e.ErrorMessage)
-                ));
+        return customer == null ? BadRequest() : Ok(customer);
+    }
 
-            var customer = await _customerService.InsertCustomerAsync(request, cancellationToken);
+    [HttpPut("{id:guid}")]
+    [ProducesResponseType(typeof(BaseApiResponse<CustomerResponse>), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(BaseApiResponse<object>), StatusCodes.Status400BadRequest)]
+    public async Task<IActionResult> UpdateCustomerAsync(Guid id, CustomerRequest request, CancellationToken cancellationToken)
+    {
+        var result = await _updateValidator.ValidateAsync(request);
+        if (!result.IsValid)
+            return BadRequest(BaseApiResponse<object>.Fail(
+                result.Errors.Select(e => e.ErrorMessage)
+            ));
 
-            return customer == null ? BadRequest() : Ok(customer);
-        }
+        if (id != request.Id)
+            return BadRequest(BaseApiResponse<object>.Fail("Id da url não é o mesmo do Id do corpo da requisição."));
 
-        [HttpPut("{id:guid}")]
-        [ProducesResponseType(typeof(BaseApiResponse<CustomerResponse>), StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(BaseApiResponse<object>), StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> UpdateCustomerAsync(Guid id, CustomerRequest request, CancellationToken cancellationToken)
-        {
-            var result = await _updateValidator.ValidateAsync(request);
-            if (!result.IsValid)
-                return BadRequest(BaseApiResponse<object>.Fail(
-                    result.Errors.Select(e => e.ErrorMessage)
-                ));
+        var customer = await _customerService.UpdateCustomerAsync(request, cancellationToken);
 
-            if (id != request.Id)
-                return BadRequest(BaseApiResponse<object>.Fail("Id da url não é o mesmo do Id do corpo da requisição."));
+        return customer == null ? BadRequest() : Ok(customer);
+    }
 
-            var customer = await _customerService.UpdateCustomerAsync(request, cancellationToken);
+    [HttpDelete("{id:guid}")]
+    [ProducesResponseType(typeof(BaseApiResponse<CustomerResponse>), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(BaseApiResponse<object>), StatusCodes.Status400BadRequest)]
+    public async Task<IActionResult> DeleteCustomerAsync(Guid id, CancellationToken cancellationToken)
+    {
+        await _customerService.DeleteCustomerAsync(id, cancellationToken);
 
-            return customer == null ? BadRequest() : Ok(customer);
-        }
-
-        [HttpDelete("{id:guid}")]
-        [ProducesResponseType(typeof(BaseApiResponse<CustomerResponse>), StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(BaseApiResponse<object>), StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> DeleteCustomerAsync(Guid id, CancellationToken cancellationToken)
-        {
-            await _customerService.DeleteCustomerAsync(id, cancellationToken);
-
-            return Ok();
-        }
+        return Ok();
     }
 }
