@@ -8,10 +8,8 @@ public class BaseApiResponse<T>
 {
     public bool Success { get; set; }
 
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public T? Data { get; set; }
 
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public IEnumerable<string>? Errors { get; set; }
 
     public static BaseApiResponse<T> Ok(T data)

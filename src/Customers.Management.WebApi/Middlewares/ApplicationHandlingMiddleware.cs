@@ -1,6 +1,10 @@
 ﻿using Customers.Management.Application.Commons;
 using Customers.Management.Application.Responses;
+using MassTransit.Configuration;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
 using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace Customers.Management.WebApi.Middlewares;
 
@@ -46,7 +50,13 @@ public class ApplicationHandlingMiddleware
         }
 
         var responseJson = JsonSerializer.Serialize(
-            BaseApiResponse<object>.Fail(exception.Message)
+            BaseApiResponse<object>.Fail(exception.Message),
+            new JsonSerializerOptions
+            {
+                PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+                DictionaryKeyPolicy = JsonNamingPolicy.CamelCase,
+                DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
+            }
         );
         return context.Response.WriteAsync(responseJson);
     }
