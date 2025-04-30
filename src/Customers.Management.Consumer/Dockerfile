@@ -9,9 +9,9 @@ WORKDIR /app
 FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
-COPY ["src/Customers.Management.Consumer/Customer.Management.Consumer.csproj", "src/Customers.Management.Consumer/"]
-COPY ["src/Customers.Management.Infra/Customers.Management.Infra.csproj", "src/Customers.Management.Infra/"]
+COPY ["src/Customers.Management.Consumer/Customers.Management.Consumer.csproj", "src/Customers.Management.Consumer/"]
 COPY ["src/Customers.Management.Domain/Customers.Management.Domain.csproj", "src/Customers.Management.Domain/"]
+COPY ["src/Customers.Management.Infra/Customers.Management.Infra.csproj", "src/Customers.Management.Infra/"]
 RUN dotnet restore "./src/Customers.Management.Consumer/Customers.Management.Consumer.csproj"
 COPY . .
 WORKDIR "/src/src/Customers.Management.Consumer"
