@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using Castle.Core.Resource;
 using Customers.Management.Application.AutoMappers;
 using Customers.Management.Application.Commons;
 using Customers.Management.Application.Requests;

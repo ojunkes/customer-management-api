@@ -21,9 +21,9 @@ public class ViaCepAdapter : IViaCepAdapter
         {
             var content = await response.Content.ReadAsStringAsync(cancellationToken);
             return JsonSerializer.Deserialize<EnderecoResponse>(content, new JsonSerializerOptions
-                    {
-                        PropertyNameCaseInsensitive = true
-                    });
+            {
+                PropertyNameCaseInsensitive = true
+            });
         }
 
         return null;

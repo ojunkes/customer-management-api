@@ -1,8 +1,5 @@
 ﻿using Customers.Management.Application.Commons;
 using Customers.Management.Application.Responses;
-using MassTransit.Configuration;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Options;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 

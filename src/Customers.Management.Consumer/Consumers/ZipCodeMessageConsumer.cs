@@ -12,7 +12,7 @@ public class ZipCodeMessageConsumer : IConsumer<ZipCodeMessage>
     private readonly ILogger<ZipCodeMessageConsumer> _logger;
     private readonly IMapper _mapper;
     private readonly IAddressRepository _addressRepository;
-    private readonly IViaCepAdapter _viaCepAdapter; 
+    private readonly IViaCepAdapter _viaCepAdapter;
 
     public ZipCodeMessageConsumer(
         ILogger<ZipCodeMessageConsumer> logger,
@@ -22,7 +22,7 @@ public class ZipCodeMessageConsumer : IConsumer<ZipCodeMessage>
     {
         _logger = logger;
         _mapper = mapper;
-        _addressRepository = addressRepository; 
+        _addressRepository = addressRepository;
         _viaCepAdapter = viaCepAdapter;
     }
 
