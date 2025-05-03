@@ -39,7 +39,8 @@ public class CustomerInsertValidator : AbstractValidator<CustomerRequest>
             .Length(2, 30).WithMessage("O campo País deve ter entre 2 e 30 caracteres.");
 
         RuleFor(x => x.SignupChannel)
-            .NotNull().WithMessage("O campo Canal de Inscrição é obrigatório.");
+            .NotNull().WithMessage("O campo Canal de Inscrição é obrigatório.")
+            .IsInEnum().WithMessage("Canal de Inscrição inválido.");
     }
 }
 

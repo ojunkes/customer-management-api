@@ -37,5 +37,9 @@ public class CustomerUpdateValidator : AbstractValidator<CustomerRequest>
         RuleFor(x => x.Country)
             .Length(2, 30).WithMessage("O campo País deve ter entre 2 e 30 caracteres.")
             .When(x => !string.IsNullOrWhiteSpace(x.Country));
+
+        RuleFor(x => x.SignupChannel)
+            .IsInEnum().WithMessage("Canal de Inscrição inválido.")
+            .When(x => x.SignupChannel != null);
     }
 }
