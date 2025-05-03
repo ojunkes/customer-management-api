@@ -1,4 +1,5 @@
-﻿using Customers.Management.Application.Services;
+﻿using Customers.Management.Application.Interfaces;
+using Customers.Management.Application.Services;
 using Customers.Management.Application.Validators;
 using FluentValidation;
 using MassTransit;

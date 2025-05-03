@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Customers.Management.Application.Commons;
+using Customers.Management.Application.Interfaces;
 using Customers.Management.Application.Requests;
 using Customers.Management.Application.Responses;
 using Customers.Management.Application.Services;
@@ -78,9 +79,7 @@ public class CustomerServiceTests
         var result = await _customerService.GetAllCustomersAsync(new CancellationToken());
 
         result.Should().NotBeNull();
-        result.Success.Should().BeTrue();
-        result.Errors.Should().BeNull();
-        result.Data.Should().SatisfyRespectively(
+        result.Should().SatisfyRespectively(
             first =>
             {
                 first.Name.Should().Be("Nome 1");
@@ -124,11 +123,9 @@ public class CustomerServiceTests
         var result = await _customerService.GetCustomerAsync(customer.Id, new CancellationToken());
 
         result.Should().NotBeNull();
-        result.Success.Should().BeTrue();
-        result.Errors.Should().BeNull();
-        result.Data!.Name.Should().Be(customer.Name);
-        result.Data.TaxId.Should().Be(customer.TaxId);
-        result.Data.SignupChannel.Should().Be(SignupChannel.Website.GetDescription());
+        result.Name.Should().Be(customer.Name);
+        result.TaxId.Should().Be(customer.TaxId);
+        result.SignupChannel.Should().Be(SignupChannel.Website.GetDescription());
     }
 
     [Fact]
@@ -184,11 +181,9 @@ public class CustomerServiceTests
         _repositoryMock.Verify(r => r.InsertAsync(It.IsAny<Customer>(), It.IsAny<CancellationToken>()), Times.Once());
         _repositoryMock.Verify(r => r.CommitAsync(), Times.Once());
         _publishEndpointMock.Verify(p => p.Publish(It.IsAny<ZipCodeMessage>(), It.IsAny<CancellationToken>()), Times.Once);
-        result.Success.Should().BeTrue();
-        result.Errors.Should().BeNull();
-        result.Data!.Name.Should().Be(customer.Name);
-        result.Data.TaxId.Should().Be(customer.TaxId);
-        result.Data.SignupChannel.Should().Be(SignupChannel.Website.GetDescription());
+        result.Name.Should().Be(customer.Name);
+        result.TaxId.Should().Be(customer.TaxId);
+        result.SignupChannel.Should().Be(SignupChannel.Website.GetDescription());
     }
 
     [Fact]
@@ -297,11 +292,9 @@ public class CustomerServiceTests
 
         _repositoryMock.Verify(r => r.Update(It.IsAny<Customer>(), It.IsAny<CancellationToken>()), Times.Once());
         _repositoryMock.Verify(r => r.CommitAsync(), Times.Once());
-        result.Success.Should().BeTrue();
-        result.Errors.Should().BeNull();
-        result.Data!.Name.Should().Be(customer.Name);
-        result.Data.TaxId.Should().Be(customer.TaxId);
-        result.Data.SignupChannel.Should().Be(SignupChannel.Website.GetDescription());
+        result.Name.Should().Be(customer.Name);
+        result.TaxId.Should().Be(customer.TaxId);
+        result.SignupChannel.Should().Be(SignupChannel.Website.GetDescription());
     }
 
     [Fact]

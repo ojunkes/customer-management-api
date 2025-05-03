@@ -1,6 +1,6 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 
-namespace Customers.Management.Application.Responses;
+namespace Customers.Management.WebApi.Responses;
 
 [ExcludeFromCodeCoverage]
 public class BaseApiResponse<T>
@@ -10,7 +10,7 @@ public class BaseApiResponse<T>
     public T? Data { get; set; }
 
     public IEnumerable<string>? Errors { get; set; }
-
+    /*
     public static BaseApiResponse<T> Ok(T data)
     {
         return new BaseApiResponse<T>
@@ -37,5 +37,6 @@ public class BaseApiResponse<T>
             Errors = new List<string> { error }
         };
     }
+    */
 }
 

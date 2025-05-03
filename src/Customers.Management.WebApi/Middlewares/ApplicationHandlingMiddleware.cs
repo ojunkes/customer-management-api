@@ -1,5 +1,6 @@
 ﻿using Customers.Management.Application.Commons;
 using Customers.Management.Application.Responses;
+using Customers.Management.WebApi.Responses;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
@@ -47,7 +48,10 @@ public class ApplicationHandlingMiddleware
         }
 
         var responseJson = JsonSerializer.Serialize(
-            BaseApiResponse<object>.Fail(exception.Message),
+            new BaseApiResponse<object>(){
+                Success = false,
+                Errors = new List<string> { exception.Message },
+            },
             new JsonSerializerOptions
             {
                 PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
@@ -55,6 +59,7 @@ public class ApplicationHandlingMiddleware
                 DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
             }
         );
+
         return context.Response.WriteAsync(responseJson);
     }
 }

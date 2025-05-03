@@ -1,6 +1,7 @@
 ﻿using Customers.Management.Application.Commons;
 using Customers.Management.Application.Responses;
 using Customers.Management.WebApi.Middlewares;
+using Customers.Management.WebApi.Responses;
 using FluentAssertions;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
