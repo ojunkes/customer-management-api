@@ -1,5 +1,5 @@
 ﻿using Customers.Management.Application.Commons;
-using Customers.Management.Application.Responses;
+using Customers.Management.Domain.Exceptions;
 using Customers.Management.WebApi.Middlewares;
 using Customers.Management.WebApi.Responses;
 using FluentAssertions;

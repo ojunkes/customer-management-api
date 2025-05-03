@@ -1,9 +1,9 @@
 ﻿using AutoMapper;
-using Customers.Management.Application.Commons;
 using Customers.Management.Application.Interfaces;
 using Customers.Management.Application.Requests;
 using Customers.Management.Application.Responses;
 using Customers.Management.Domain.Entities;
+using Customers.Management.Domain.Exceptions;
 using Customers.Management.Domain.Messages;
 using Customers.Management.Infra.Repositories;
 using MassTransit;

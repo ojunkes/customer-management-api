@@ -1,4 +1,4 @@
-﻿using Customers.Management.Application.Commons;
+﻿using Customers.Management.Domain.Exceptions;
 using FluentAssertions;
 using Xunit;
 

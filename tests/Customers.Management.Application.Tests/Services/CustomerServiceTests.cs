@@ -6,6 +6,7 @@ using Customers.Management.Application.Responses;
 using Customers.Management.Application.Services;
 using Customers.Management.Domain.Entities;
 using Customers.Management.Domain.Enums;
+using Customers.Management.Domain.Exceptions;
 using Customers.Management.Domain.Messages;
 using Customers.Management.Infra.Repositories;
 using FluentAssertions;
