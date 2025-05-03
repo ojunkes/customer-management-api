@@ -33,8 +33,6 @@ public static class ServiceCollectionExtensions
             });
         });
 
-        servicesCollection.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
-
         servicesCollection.AddValidatorsFromAssembly(typeof(ApplicationValidationAssemblyReference).Assembly);
 
         return servicesCollection;

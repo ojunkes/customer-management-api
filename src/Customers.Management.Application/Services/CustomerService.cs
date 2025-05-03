@@ -1,8 +1,6 @@
-﻿using AutoMapper;
-using Customers.Management.Application.Interfaces;
+﻿using Customers.Management.Application.Interfaces;
 using Customers.Management.Application.Requests;
 using Customers.Management.Application.Responses;
-using Customers.Management.Domain.Entities;
 using Customers.Management.Domain.Exceptions;
 using Customers.Management.Domain.Messages;
 using Customers.Management.Infra.Repositories;
@@ -14,23 +12,20 @@ internal class CustomerService : ICustomerService
 {
     private readonly ICustomerRepository _customerRepository;
     private IPublishEndpoint _publishEndpoint;
-    private readonly IMapper _mapper;
 
     public CustomerService(
         ICustomerRepository customerRepository,
-        IPublishEndpoint publishEndpoint,
-        IMapper mapper)
+        IPublishEndpoint publishEndpoint)
     {
         _customerRepository = customerRepository;
         _publishEndpoint = publishEndpoint;
-        _mapper = mapper;
     }
 
     public async Task<IEnumerable<CustomerResponse>> GetAllCustomersAsync(CancellationToken cancellationToken)
     {
         var customers = await _customerRepository.GetAllAsync(cancellationToken);
 
-        var customersResponse = _mapper.Map<IEnumerable<CustomerResponse>>(customers);
+        var customersResponse = customers.ToResponse();
 
         return customersResponse;
     }
@@ -41,9 +36,9 @@ internal class CustomerService : ICustomerService
         if (customer == null)
             throw new DomainException("Cliente não encontrado.");
 
-        var customersResponse = _mapper.Map<CustomerResponse>(customer);
+        var customerResponse = customer.ToResponse();
 
-        return customersResponse;
+        return customerResponse;
     }
 
     public async Task<CustomerResponse> InsertCustomerAsync(CustomerRequest request, CancellationToken cancellationToken)
@@ -55,15 +50,15 @@ internal class CustomerService : ICustomerService
         if (customerExist != null)
             throw new DomainException("CPF já consta na base de dados.");
 
-        var customer = _mapper.Map<Customer>(request);
+        var customer = request.ToEntity();
 
         await _customerRepository.InsertAsync(customer, cancellationToken);
         await _customerRepository.CommitAsync();
         await PublishZipCodeMessageAsync(request.ZipCode!, cancellationToken);
 
-        var customersResponse = _mapper.Map<CustomerResponse>(customer);
+        var customerResponse = customer.ToResponse();
 
-        return customersResponse;
+        return customerResponse;
     }
 
     public async Task<CustomerResponse> UpdateCustomerAsync(CustomerRequest request, CancellationToken cancellationToken)
@@ -72,15 +67,15 @@ internal class CustomerService : ICustomerService
         if (customer == null)
             throw new DomainException("Cliente não encontrado.");
 
-        _mapper.Map(request, customer);
+        customer.UpdateFrom(request);
 
         await _customerRepository.Update(customer, cancellationToken);
         await _customerRepository.CommitAsync();
-        await PublishZipCodeMessageAsync(request.ZipCode!, cancellationToken);
+        await PublishZipCodeMessageAsync(customer.ZipCode, cancellationToken);
 
-        var customersResponse = _mapper.Map<CustomerResponse>(customer);
+        var customerResponse = customer.ToResponse();
 
-        return customersResponse;
+        return customerResponse;
     }
 
     public async Task DeleteCustomerAsync(Guid id, CancellationToken cancellationToken)

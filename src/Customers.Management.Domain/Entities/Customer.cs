@@ -36,4 +36,26 @@ public class Customer : BaseEntity
         Country = country;
         SignupChannel = signupChannel;
     }
+
+    public void Update(
+        string name,
+        string taxId,
+        DateOnly dateOfBirth,
+        string street,
+        string city,
+        string zipCode,
+        string state,
+        string country,
+        SignupChannel signupChannel)
+    {
+        Name = name;
+        TaxId = taxId;
+        DateOfBirth = dateOfBirth;
+        Street = street;
+        City = city;
+        ZipCode = zipCode;
+        State = state;
+        Country = country;
+        SignupChannel = signupChannel;
+    }
 }

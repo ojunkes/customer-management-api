@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using Customers.Management.Application.Commons;
+﻿using Customers.Management.Application.Commons;
 using Customers.Management.Application.Interfaces;
 using Customers.Management.Application.Requests;
 using Customers.Management.Application.Responses;
@@ -20,16 +19,14 @@ public class CustomerServiceTests
 {
     private readonly Mock<ICustomerRepository> _repositoryMock;
     private readonly Mock<IPublishEndpoint> _publishEndpointMock;
-    private readonly Mock<IMapper> _mapperMock;
     private readonly ICustomerService _customerService;
 
     public CustomerServiceTests()
     {
         _repositoryMock = new Mock<ICustomerRepository>();
         _publishEndpointMock = new Mock<IPublishEndpoint>();
-        _mapperMock = new Mock<IMapper>();
 
-        _customerService = new CustomerService(_repositoryMock.Object, _publishEndpointMock.Object, _mapperMock.Object);
+        _customerService = new CustomerService(_repositoryMock.Object, _publishEndpointMock.Object);
     }
 
     [Fact]
@@ -41,41 +38,8 @@ public class CustomerServiceTests
             new Customer("Nome 2", "12345678902", DateOnly.FromDateTime(DateTime.Now), "Rua 2", "Cidade 2", "12345-123", "Estado 2", "País 2", SignupChannel.Partner)
         };
 
-        var customersResponse = new List<CustomerResponse>
-        {
-            new CustomerResponse()
-            {
-                Id = customers[0].Id,
-                Name = customers[0].Name,
-                TaxId = customers[0].TaxId,
-                DateOfBirth = customers[0].DateOfBirth,
-                Street = customers[0].Street,
-                City = customers[0].City,
-                ZipCode = customers[0].ZipCode,
-                State = customers[0].State,
-                Country = customers[0].Country,
-                SignupChannel  = customers[0].SignupChannel.GetDescription()
-            },
-            new CustomerResponse()
-            {
-                Id = customers[1].Id,
-                Name = customers[1].Name,
-                TaxId = customers[1].TaxId,
-                DateOfBirth = customers[1].DateOfBirth,
-                Street = customers[1].Street,
-                City = customers[1].City,
-                ZipCode = customers[1].ZipCode,
-                State = customers[1].State,
-                Country = customers[1].Country,
-                SignupChannel  = customers[1].SignupChannel.GetDescription()
-            }
-        };
-
         _repositoryMock.Setup(r => r.GetAllAsync(It.IsAny<CancellationToken>()))
             .ReturnsAsync(customers);
-
-        _mapperMock.Setup(m => m.Map<IEnumerable<CustomerResponse>>(customers))
-            .Returns(customersResponse);
 
         var result = await _customerService.GetAllCustomersAsync(new CancellationToken());
 
@@ -101,25 +65,8 @@ public class CustomerServiceTests
     {
         var customer = new Customer("Nome 1", "12345678901", DateOnly.FromDateTime(DateTime.Now), "Rua 1", "Cidade 1", "12345-123", "Estado 1", "País 1", SignupChannel.Website);
 
-        var customerResponse = new CustomerResponse()
-        {
-            Id = customer.Id,
-            Name = customer.Name,
-            TaxId = customer.TaxId,
-            DateOfBirth = customer.DateOfBirth,
-            Street = customer.Street,
-            City = customer.City,
-            ZipCode = customer.ZipCode,
-            State = customer.State,
-            Country = customer.Country,
-            SignupChannel = customer.SignupChannel.GetDescription()
-        };
-
         _repositoryMock.Setup(r => r.GetByIdAsync(It.IsAny<Guid>(), It.IsAny<CancellationToken>()))
             .ReturnsAsync(customer);
-
-        _mapperMock.Setup(m => m.Map<CustomerResponse>(customer))
-            .Returns(customerResponse);
 
         var result = await _customerService.GetCustomerAsync(customer.Id, new CancellationToken());
 
@@ -155,35 +102,13 @@ public class CustomerServiceTests
             SignupChannel = SignupChannel.Website
         };
 
-        var customer = new Customer("Nome 1", "12345678901", DateOnly.FromDateTime(DateTime.Now), "Rua 1", "Cidade 1", "12345-123", "Estado 1", "País 1", SignupChannel.Website);
-
-        var customerResponse = new CustomerResponse()
-        {
-            Id = customer.Id,
-            Name = customer.Name,
-            TaxId = customer.TaxId,
-            DateOfBirth = customer.DateOfBirth,
-            Street = customer.Street,
-            City = customer.City,
-            ZipCode = customer.ZipCode,
-            State = customer.State,
-            Country = customer.Country,
-            SignupChannel = customer.SignupChannel.GetDescription()
-        };
-
-        _mapperMock.Setup(m => m.Map<Customer>(customerRequest))
-            .Returns(customer);
-
-        _mapperMock.Setup(m => m.Map<CustomerResponse>(customer))
-            .Returns(customerResponse);
-
         var result = await _customerService.InsertCustomerAsync(customerRequest, new CancellationToken());
 
         _repositoryMock.Verify(r => r.InsertAsync(It.IsAny<Customer>(), It.IsAny<CancellationToken>()), Times.Once());
         _repositoryMock.Verify(r => r.CommitAsync(), Times.Once());
         _publishEndpointMock.Verify(p => p.Publish(It.IsAny<ZipCodeMessage>(), It.IsAny<CancellationToken>()), Times.Once);
-        result.Name.Should().Be(customer.Name);
-        result.TaxId.Should().Be(customer.TaxId);
+        result.Name.Should().Be(customerRequest.Name);
+        result.TaxId.Should().Be(customerRequest.TaxId);
         result.SignupChannel.Should().Be(SignupChannel.Website.GetDescription());
     }
 
@@ -266,28 +191,8 @@ public class CustomerServiceTests
 
         var customer = new Customer("Nome 1", "12345678901", DateOnly.FromDateTime(DateTime.Now), "Rua 1", "Cidade 1", "12345-123", "Estado 1", "País 1", SignupChannel.Website);
 
-        var customerResponse = new CustomerResponse()
-        {
-            Id = customer.Id,
-            Name = customer.Name,
-            TaxId = customer.TaxId,
-            DateOfBirth = customer.DateOfBirth,
-            Street = customer.Street,
-            City = customer.City,
-            ZipCode = customer.ZipCode,
-            State = customer.State,
-            Country = customer.Country,
-            SignupChannel = customer.SignupChannel.GetDescription()
-        };
-
         _repositoryMock.Setup(r => r.GetByIdAsync(customerRequest.Id, It.IsAny<CancellationToken>()))
             .ReturnsAsync(customer);
-
-        _mapperMock.Setup(m => m.Map(customerRequest, customer))
-            .Returns(customer);
-
-        _mapperMock.Setup(m => m.Map<CustomerResponse>(customer))
-            .Returns(customerResponse);
 
         var result = await _customerService.UpdateCustomerAsync(customerRequest, new CancellationToken());
 
