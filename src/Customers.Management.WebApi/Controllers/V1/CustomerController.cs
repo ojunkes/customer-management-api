@@ -1,3 +1,4 @@
+using Asp.Versioning;
 using Customers.Management.Application.Interfaces;
 using Customers.Management.Application.Requests;
 using Customers.Management.Application.Validators;
@@ -5,14 +6,13 @@ using Customers.Management.WebApi.Controllers;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics.CodeAnalysis;
 
-namespace Customer.Management.WebApi.Controllers;
+namespace Customers.Management.WebApi.Controllers.v1;
 
-[Route(RouteTemplate)]
 [ExcludeFromCodeCoverage]
+[Route("api/v{version:apiVersion}/customers")]
+[ApiVersion("1.0")]
 public class CustomerController : BaseController
 {
-    private const string RouteTemplate = "api/v1/customers";
-
     private readonly ICustomerService _customerService;
     private readonly CustomerInsertValidator _insertValidator;
     private readonly CustomerUpdateValidator _updateValidator;

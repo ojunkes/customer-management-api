@@ -1,3 +1,4 @@
+using Asp.Versioning;
 using Customers.Management.Application.DependencyInjection;
 using Customers.Management.Infra.DependencyInjection;
 using Customers.Management.Infra.Extensions;
@@ -14,6 +15,14 @@ public static class Program
     public static void Main(string[] args)
     {
         var builder = WebApplication.CreateBuilder(args);
+
+        builder.Services.AddApiVersioning(options =>
+        {
+            options.DefaultApiVersion = new ApiVersion(1, 0);
+            options.AssumeDefaultVersionWhenUnspecified = true;
+            options.ReportApiVersions = true;
+            options.ApiVersionReader = new UrlSegmentApiVersionReader();
+        });
 
         builder.Services.AddControllers()
             .AddJsonOptions(options =>
