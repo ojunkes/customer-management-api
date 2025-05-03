@@ -93,7 +93,7 @@ public class CustomerInsertValidatorMessagesTests
         var result = _validator.TestValidate(model);
 
         result.ShouldHaveValidationErrorFor(x => x.ZipCode)
-              .WithErrorMessage("CEP deve conter 8 dígitos.");
+              .WithErrorMessage("CEP deve conter 8 dígitos numéricos.");
     }
 
     [Fact]
