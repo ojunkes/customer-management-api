@@ -1,5 +1,5 @@
-﻿using AutoMapper;
-using Customers.Management.Consumer.Adapters;
+﻿using Customers.Management.Consumer.Adapters;
+using Customers.Management.Consumer.Responses;
 using Customers.Management.Domain.Entities;
 using Customers.Management.Domain.Messages;
 using Customers.Management.Infra.Repositories;
@@ -10,18 +10,15 @@ namespace Customers.Management.Consumer.Consumers;
 public class ZipCodeMessageConsumer : IConsumer<ZipCodeMessage>
 {
     private readonly ILogger<ZipCodeMessageConsumer> _logger;
-    private readonly IMapper _mapper;
     private readonly IAddressRepository _addressRepository;
     private readonly IViaCepAdapter _viaCepAdapter;
 
     public ZipCodeMessageConsumer(
         ILogger<ZipCodeMessageConsumer> logger,
-        IMapper mapper,
         IAddressRepository addressRepository,
         IViaCepAdapter viaCepAdapter)
     {
         _logger = logger;
-        _mapper = mapper;
         _addressRepository = addressRepository;
         _viaCepAdapter = viaCepAdapter;
     }
@@ -47,12 +44,12 @@ public class ZipCodeMessageConsumer : IConsumer<ZipCodeMessage>
 
         if (existingAddress != null)
         {
-            _mapper.Map(addressResponse, existingAddress);
+            existingAddress.UpdateFrom(addressResponse);
             await _addressRepository.Update(existingAddress, context.CancellationToken);
         }
         else
         {
-            var address = _mapper.Map<Address>(addressResponse);
+            var address = addressResponse.ToEntity();
             await _addressRepository.InsertAsync(address, context.CancellationToken);
         }
         await _addressRepository.CommitAsync();

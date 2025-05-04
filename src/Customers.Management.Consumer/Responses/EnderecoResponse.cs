@@ -1,4 +1,5 @@
-﻿using System.Diagnostics.CodeAnalysis;
+﻿using Customers.Management.Domain.Entities;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Customers.Management.Consumer.Responses;
 
@@ -18,5 +19,46 @@ public record EnderecoResponse
     public string? Gia { get; set; }
     public string? Ddd { get; set; }
     public string? Siafi { get; set; }
+}
+
+public static class EnderecoResponseExtensions
+{
+    public static Address ToEntity(this EnderecoResponse enderecoResponse)
+    {
+        return new Address(
+            enderecoResponse.Cep!.Replace("-", ""),
+            enderecoResponse.Logradouro!,
+            enderecoResponse.Complemento!,
+            enderecoResponse.Unidade!,
+            enderecoResponse.Bairro!,
+            enderecoResponse.Localidade!,
+            enderecoResponse.Uf!,
+            enderecoResponse.Estado!,
+            enderecoResponse.Regiao!,
+            enderecoResponse.Ibge!,
+            enderecoResponse.Gia!,
+            enderecoResponse.Ddd!,
+            enderecoResponse.Siafi!
+        );
+    }
+
+    public static void UpdateFrom(this Address address, EnderecoResponse enderecoResponse)
+    {
+        address.Update(
+            enderecoResponse.Cep!.Replace("-", ""),
+            enderecoResponse.Logradouro!,
+            enderecoResponse.Complemento!,
+            enderecoResponse.Unidade!,
+            enderecoResponse.Bairro!,
+            enderecoResponse.Localidade!,
+            enderecoResponse.Uf!,
+            enderecoResponse.Estado!,
+            enderecoResponse.Regiao!,
+            enderecoResponse.Ibge!,
+            enderecoResponse.Gia!,
+            enderecoResponse.Ddd!,
+            enderecoResponse.Siafi!
+        );
+    }
 }
 

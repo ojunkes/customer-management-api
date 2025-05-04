@@ -36,7 +36,6 @@ public static class Program
             });
         });
 
-        builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
         builder.Services.AddScoped<IViaCepAdapter, ViaCepAdapter>();
         builder.Services.AddHttpClient<IViaCepAdapter, ViaCepAdapter>();
 
