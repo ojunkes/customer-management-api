@@ -10,8 +10,7 @@ public sealed class FixtureServiceProvider
     public FixtureServiceProvider()
     {
         var serviceCollection = new ServiceCollection()
-            .AddContextSqlServerInMemory()
-            .AddRepositories();
+            .AddContextSqlServerInMemory();
 
         _serviceProvider = serviceCollection.BuildServiceProvider();
     }
