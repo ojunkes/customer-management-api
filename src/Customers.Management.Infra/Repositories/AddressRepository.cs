@@ -1,15 +1,16 @@
 ﻿using Customers.Management.Domain.Entities;
 using Customers.Management.Domain.Interfaces.Repositories;
 using Customers.Management.Infra.Context;
+using Customers.Management.Infra.Context.Abstraction;
 using Microsoft.EntityFrameworkCore;
 
 namespace Customers.Management.Infra.Repositories;
 
-internal class AddressRepository : IAddressRepository
+internal class AddressRepository : GenericRepository<Address>, IAddressRepository
 {
     private readonly ApplicationDbContext _context;
 
-    public AddressRepository(ApplicationDbContext context)
+    public AddressRepository(ApplicationDbContext context) : base(context)
     {
         _context = context;
     }
@@ -18,23 +19,5 @@ internal class AddressRepository : IAddressRepository
     {
         return await _context.GetDbSet<Address>()
             .FirstOrDefaultAsync(a => a.ZipCode == zipCode, cancellationToken);
-    }
-
-    public async Task InsertAsync(Address address, CancellationToken cancellationToken)
-    {
-        await _context.GetDbSet<Address>()
-            .AddAsync(address, cancellationToken);
-    }
-
-    public Task Update(Address address, CancellationToken cancellationToken)
-    {
-        _context.Entry(address).State = EntityState.Modified;
-
-        return Task.CompletedTask;
-    }
-
-    public async Task CommitAsync()
-    {
-        await _context.CommitAsync();
     }
 }

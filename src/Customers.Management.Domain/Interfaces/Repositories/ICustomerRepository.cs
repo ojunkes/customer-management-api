@@ -2,19 +2,7 @@
 
 namespace Customers.Management.Domain.Interfaces.Repositories;
 
-public interface ICustomerRepository
+public interface ICustomerRepository : IGenericRepository<Customer>
 {
-    Task<IEnumerable<Customer>?> GetAllAsync(CancellationToken cancellationToken);
-
-    Task<Customer?> GetByIdAsync(Guid id, CancellationToken cancellationToken);
-
     Task<Customer?> GetByTaxIdAsync(string taxId, CancellationToken cancellationToken);
-
-    Task InsertAsync(Customer customer, CancellationToken cancellationToken);
-
-    Task Update(Customer customer, CancellationToken cancellationToken);
-
-    Task DeleteAsync(Customer customer, CancellationToken cancellationToken);
-
-    Task CommitAsync();
 }
