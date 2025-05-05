@@ -1,6 +1,7 @@
 ﻿using Customers.Management.Application.Interfaces;
 using Customers.Management.Application.Services;
 using Customers.Management.Application.Validators;
+using Customers.Management.Infra.DependencyInjection;
 using FluentValidation;
 using MassTransit;
 using Microsoft.Extensions.Configuration;
@@ -15,23 +16,12 @@ namespace Customers.Management.Application.DependencyInjection;
 [ExcludeFromCodeCoverage]
 public static class ServiceCollectionExtensions
 {
-    public static IServiceCollection AddApplicationServices(this IServiceCollection servicesCollection)
+    public static IServiceCollection AddApplicationServices(this IServiceCollection servicesCollection, IConfiguration configuration)
     {
         servicesCollection.AddScoped<ICustomerService, CustomerService>();
 
-        servicesCollection.AddMassTransit(x =>
-        {
-            x.UsingRabbitMq((context, cfg) =>
-            {
-                var configuration = context.GetRequiredService<IConfiguration>();
-
-                cfg.Host(configuration["RabbitMq:Host"], "/", h =>
-                {
-                    h.Username(configuration["RabbitMq:Username"]!);
-                    h.Password(configuration["RabbitMq:Password"]!);
-                });
-            });
-        });
+        servicesCollection.AddInfrastructureServices(configuration);
+        servicesCollection.AddMessagingPublisher(configuration);
 
         servicesCollection.AddValidatorsFromAssembly(typeof(ApplicationValidationAssemblyReference).Assembly);
 

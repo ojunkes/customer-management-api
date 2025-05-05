@@ -47,10 +47,7 @@ public static class Program
 
         builder.Services.AddSwaggerGen();
 
-        builder.Services.AddApplicationServices();
-
-        builder.Services.AddDbContextSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")!);
-        builder.Services.AddRepositories();
+        builder.Services.AddApplicationServices(builder.Configuration);
 
         var app = builder.Build();
 

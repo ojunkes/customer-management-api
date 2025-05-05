@@ -16,26 +16,8 @@ public static class Program
 
         builder.Services.AddLogging();
 
-        builder.Services.AddDbContextSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")!);
-        builder.Services.AddRepositories();
-
-        builder.Services.AddMassTransit(x =>
-        {
-            x.AddConsumer<ZipCodeMessageConsumer>();
-
-            x.UsingRabbitMq((context, cfg) =>
-            {
-                var configuration = context.GetRequiredService<IConfiguration>();
-
-                cfg.Host(configuration["RabbitMq:Host"], "/", h =>
-                {
-                    h.Username(configuration["RabbitMq:Username"]!);
-                    h.Password(configuration["RabbitMq:Password"]!);
-                });
-
-                cfg.ConfigureEndpoints(context);
-            });
-        });
+        builder.Services.AddInfrastructureServices(builder.Configuration);
+        builder.Services.AddMessagingConsumer<ZipCodeMessageConsumer>(builder.Configuration);
 
         builder.Services.AddScoped<IViaCepAdapter, ViaCepAdapter>();
         builder.Services.AddHttpClient<IViaCepAdapter, ViaCepAdapter>();
