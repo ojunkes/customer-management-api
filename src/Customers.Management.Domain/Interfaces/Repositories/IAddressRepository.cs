@@ -1,6 +1,6 @@
 ﻿using Customers.Management.Domain.Entities;
 
-namespace Customers.Management.Domain.Interfaces;
+namespace Customers.Management.Domain.Interfaces.Repositories;
 
 public interface IAddressRepository
 {

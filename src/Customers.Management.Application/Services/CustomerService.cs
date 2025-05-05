@@ -2,7 +2,7 @@
 using Customers.Management.Application.Requests;
 using Customers.Management.Application.Responses;
 using Customers.Management.Domain.Exceptions;
-using Customers.Management.Domain.Interfaces;
+using Customers.Management.Domain.Interfaces.Repositories;
 using Customers.Management.Domain.Messages;
 using MassTransit;
 

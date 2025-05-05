@@ -1,7 +1,7 @@
 ﻿using Customers.Management.Consumer.Adapters;
 using Customers.Management.Consumer.Responses;
 using Customers.Management.Domain.Entities;
-using Customers.Management.Domain.Interfaces;
+using Customers.Management.Domain.Interfaces.Repositories;
 using Customers.Management.Domain.Messages;
 using MassTransit;
 
