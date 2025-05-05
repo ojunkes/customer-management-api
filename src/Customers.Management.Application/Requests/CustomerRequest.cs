@@ -1,8 +1,6 @@
 ﻿using Customers.Management.Domain.Entities;
 using Customers.Management.Domain.Enums;
-using MassTransit.SqlTransport.Topology;
 using System.Diagnostics.CodeAnalysis;
-using System.Runtime.CompilerServices;
 
 namespace Customers.Management.Application.Requests;
 

@@ -3,11 +3,9 @@ using Customers.Management.Application.Services;
 using Customers.Management.Application.Validators;
 using Customers.Management.Infra.DependencyInjection;
 using FluentValidation;
-using MassTransit;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System.Diagnostics.CodeAnalysis;
-using System.Reflection;
 using System.Runtime.CompilerServices;
 
 [assembly: InternalsVisibleTo("Customers.Management.Application.Tests")]

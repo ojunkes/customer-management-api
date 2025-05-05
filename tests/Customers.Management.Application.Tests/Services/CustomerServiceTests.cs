@@ -1,7 +1,6 @@
 ﻿using Customers.Management.Application.Commons;
 using Customers.Management.Application.Interfaces;
 using Customers.Management.Application.Requests;
-using Customers.Management.Application.Responses;
 using Customers.Management.Application.Services;
 using Customers.Management.Domain.Entities;
 using Customers.Management.Domain.Enums;

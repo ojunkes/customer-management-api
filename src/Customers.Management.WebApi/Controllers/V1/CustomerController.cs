@@ -2,7 +2,6 @@ using Asp.Versioning;
 using Customers.Management.Application.Interfaces;
 using Customers.Management.Application.Requests;
 using Customers.Management.Application.Validators;
-using Customers.Management.WebApi.Controllers;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics.CodeAnalysis;
 

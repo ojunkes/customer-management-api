@@ -1,6 +1,5 @@
 using Asp.Versioning;
 using Customers.Management.Application.DependencyInjection;
-using Customers.Management.Infra.DependencyInjection;
 using Customers.Management.Infra.Extensions;
 using Customers.Management.WebApi.Middlewares;
 using System.Diagnostics.CodeAnalysis;

@@ -1,6 +1,4 @@
-﻿using Customers.Management.Application.Commons;
-using Customers.Management.Application.Responses;
-using Customers.Management.Domain.Exceptions;
+﻿using Customers.Management.Domain.Exceptions;
 using Customers.Management.WebApi.Responses;
 using System.Text.Json;
 using System.Text.Json.Serialization;
@@ -49,7 +47,8 @@ public class ApplicationHandlingMiddleware
         }
 
         var responseJson = JsonSerializer.Serialize(
-            new BaseApiResponse<object>(){
+            new BaseApiResponse<object>()
+            {
                 Success = false,
                 Errors = new List<string> { exception.Message },
             },

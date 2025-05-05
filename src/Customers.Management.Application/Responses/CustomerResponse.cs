@@ -1,7 +1,6 @@
 ﻿using Customers.Management.Application.Commons;
 using Customers.Management.Domain.Entities;
 using System.Diagnostics.CodeAnalysis;
-using System.Runtime.CompilerServices;
 
 namespace Customers.Management.Application.Responses;
 

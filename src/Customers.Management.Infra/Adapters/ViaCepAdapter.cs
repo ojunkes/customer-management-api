@@ -4,7 +4,6 @@ using Microsoft.Extensions.Logging;
 using Polly;
 using Polly.Retry;
 using System.Net.Http.Json;
-using System.Text.Json;
 
 namespace Customers.Management.Infra.Adapters;
 

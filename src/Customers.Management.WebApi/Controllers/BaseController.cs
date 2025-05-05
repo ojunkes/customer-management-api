@@ -12,7 +12,7 @@ namespace Customers.Management.WebApi.Controllers;
 public abstract class BaseController : ControllerBase
 {
     protected ActionResult Success(object? data = null) =>
-        Ok( new BaseApiResponse<object> { Success = true, Data = data });
+        Ok(new BaseApiResponse<object> { Success = true, Data = data });
 
     protected ActionResult Fail(string? error = null) =>
         BadRequest(new BaseApiResponse<object> { Success = false, Errors = new List<string> { error } });
