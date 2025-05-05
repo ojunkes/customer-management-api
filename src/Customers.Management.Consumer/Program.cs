@@ -1,5 +1,6 @@
 using Customers.Management.Consumer.Adapters;
 using Customers.Management.Consumer.Consumers;
+using Customers.Management.Domain.Interfaces;
 using Customers.Management.Infra.DependencyInjection;
 using MassTransit;
 using System.Diagnostics.CodeAnalysis;

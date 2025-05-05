@@ -1,4 +1,5 @@
-﻿using Customers.Management.Infra.Context;
+﻿using Customers.Management.Domain.Interfaces;
+using Customers.Management.Infra.Context;
 using Customers.Management.Infra.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;

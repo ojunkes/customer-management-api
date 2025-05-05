@@ -1,5 +1,5 @@
 ﻿using Customers.Management.Domain.Entities;
-using Customers.Management.Infra.Repositories;
+using Customers.Management.Domain.Interfaces;
 using Customers.Management.Infra.Tests.Fixtures;
 using FluentAssertions;
 using Xunit;
