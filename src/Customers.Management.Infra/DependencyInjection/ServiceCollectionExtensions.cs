@@ -1,4 +1,6 @@
-﻿using Customers.Management.Domain.Interfaces.Repositories;
+﻿using Customers.Management.Domain.Interfaces.Adapters;
+using Customers.Management.Domain.Interfaces.Repositories;
+using Customers.Management.Infra.Adapters;
 using Customers.Management.Infra.Context;
 using Customers.Management.Infra.Repositories;
 using MassTransit;
@@ -18,6 +20,9 @@ public static class ServiceCollectionExtensions
         serviceCollection.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")!));
 
         serviceCollection.AddRepositories();
+
+        serviceCollection.AddScoped<IViaCepAdapter, ViaCepAdapter>();
+        serviceCollection.AddHttpClient<IViaCepAdapter, ViaCepAdapter>();
 
         return serviceCollection;
     }

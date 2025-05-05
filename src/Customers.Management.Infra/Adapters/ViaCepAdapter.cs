@@ -1,9 +1,11 @@
-﻿using Customers.Management.Consumer.Responses;
+﻿using Customers.Management.Domain.Interfaces.Adapters;
+using Customers.Management.Domain.Responses;
+using Microsoft.Extensions.Logging;
 using Polly;
 using Polly.Retry;
 using System.Text.Json;
 
-namespace Customers.Management.Consumer.Adapters;
+namespace Customers.Management.Infra.Adapters;
 
 public class ViaCepAdapter : IViaCepAdapter
 {

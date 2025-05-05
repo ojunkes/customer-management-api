@@ -1,7 +1,7 @@
 ﻿using Customers.Management.Domain.Entities;
 using System.Diagnostics.CodeAnalysis;
 
-namespace Customers.Management.Consumer.Responses;
+namespace Customers.Management.Domain.Responses;
 
 [ExcludeFromCodeCoverage]
 public record EnderecoResponse

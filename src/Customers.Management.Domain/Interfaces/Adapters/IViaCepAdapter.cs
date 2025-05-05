@@ -1,6 +1,6 @@
-﻿using Customers.Management.Consumer.Responses;
+﻿using Customers.Management.Domain.Responses;
 
-namespace Customers.Management.Consumer.Adapters;
+namespace Customers.Management.Domain.Interfaces.Adapters;
 
 public interface IViaCepAdapter
 {
