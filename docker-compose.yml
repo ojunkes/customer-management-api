@@ -31,6 +31,7 @@ services:
       - rabbitmq
     environment:
       - ConnectionStrings__DefaultConnection=Server=db;Database=Portfolio;User=sa;Password=Xpto1234;TrustServerCertificate=True;
+      - ViaCep__BaseUrl=https://viacep.com.br/ws/
       - RabbitMq__Host=rabbitmq
       - RabbitMq__Username=guest
       - RabbitMq__Password=guest

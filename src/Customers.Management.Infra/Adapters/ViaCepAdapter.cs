@@ -3,6 +3,7 @@ using Customers.Management.Domain.Responses;
 using Microsoft.Extensions.Logging;
 using Polly;
 using Polly.Retry;
+using System.Net.Http.Json;
 using System.Text.Json;
 
 namespace Customers.Management.Infra.Adapters;
@@ -10,16 +11,15 @@ namespace Customers.Management.Infra.Adapters;
 public class ViaCepAdapter : IViaCepAdapter
 {
     private readonly ILogger<ViaCepAdapter> _logger;
-    private readonly HttpClient _httpClient;
+    private readonly IHttpClientFactory _httpClientFactory;
     private readonly AsyncRetryPolicy<HttpResponseMessage> _retryPolicy;
 
     public ViaCepAdapter(
         ILogger<ViaCepAdapter> logger,
-        HttpClient httpClient)
+        IHttpClientFactory httpClientFactory)
     {
         _logger = logger;
-        _httpClient = httpClient;
-        _httpClient.BaseAddress = new Uri("https://viacep.com.br/ws/");
+        _httpClientFactory = httpClientFactory;
 
         var retryDelays = new[]
         {
@@ -41,16 +41,13 @@ public class ViaCepAdapter : IViaCepAdapter
 
     public async Task<EnderecoResponse?> GetAddressByZipCodeAsync(string zipCode, CancellationToken cancellationToken)
     {
+        var httpClient = _httpClientFactory.CreateClient("ViaCep");
         var response = await _retryPolicy.ExecuteAsync(() =>
-            _httpClient.GetAsync($"{zipCode}/json/", cancellationToken));
+                            httpClient.GetAsync($"{zipCode}/json/", cancellationToken));
 
         if (!response.IsSuccessStatusCode)
             return null;
 
-        var content = await response.Content.ReadAsStringAsync(cancellationToken);
-        return JsonSerializer.Deserialize<EnderecoResponse>(content, new JsonSerializerOptions
-        {
-            PropertyNameCaseInsensitive = true
-        });
+        return await response.Content.ReadFromJsonAsync<EnderecoResponse>();
     }
 }

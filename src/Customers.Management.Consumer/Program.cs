@@ -20,9 +20,6 @@ public static class Program
         builder.Services.AddInfrastructureServices(builder.Configuration);
         builder.Services.AddMessagingConsumer<ZipCodeMessageConsumer>(builder.Configuration);
 
-        builder.Services.AddScoped<IViaCepAdapter, ViaCepAdapter>();
-        builder.Services.AddHttpClient<IViaCepAdapter, ViaCepAdapter>();
-
         var host = builder.Build();
         host.Run();
     }

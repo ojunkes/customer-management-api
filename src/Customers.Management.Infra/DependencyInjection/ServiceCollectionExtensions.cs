@@ -21,8 +21,12 @@ public static class ServiceCollectionExtensions
 
         serviceCollection.AddRepositories();
 
+        serviceCollection.AddHttpClient("ViaCep", client =>
+        {
+            client.BaseAddress = new Uri(configuration["ViaCep:BaseUrl"]!);
+            client.DefaultRequestHeaders.Add("Accept", "application/json");
+        });
         serviceCollection.AddScoped<IViaCepAdapter, ViaCepAdapter>();
-        serviceCollection.AddHttpClient<IViaCepAdapter, ViaCepAdapter>();
 
         return serviceCollection;
     }
